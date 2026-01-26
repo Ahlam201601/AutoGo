@@ -67,6 +67,7 @@ export default function AddCar() {
     if (!form.brand) temp.brand = "Brand is required";
     if (!form.model) temp.model = "Model is required";
     if (!form.year) temp.year = "Year is required";
+    if (!form.color) temp.color = "Color is required";
     if (!form.pricePerDay) temp.pricePerDay = "Price per day is required";
     if (!form.seats) temp.seats = "Seats are required";
     if (!form.category) temp.category = "Category is required";
@@ -133,12 +134,6 @@ export default function AddCar() {
     <div className="max-w-5xl mx-auto bg-white p-8 rounded-2xl shadow-xl border border-orange-500/30">
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-2xl font-bold text-gray-800">Add New Car</h1>
-        <button
-          onClick={() => navigate("/admin/cars")}
-          className="text-gray-500 hover:text-black"
-        >
-          <span className="text-xl">✕</span>
-        </button>
       </div>
 
       <form onSubmit={(e) => e.preventDefault()} className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -199,8 +194,11 @@ export default function AddCar() {
             value={form.color}
             onChange={handleChange}
             placeholder="Enter color"
-            className="w-full border p-3 rounded-xl mt-1 focus:border-orange-500 outline-none"
+            className={`w-full border p-3 rounded-xl mt-1 focus:border-orange-500 outline-none ${
+              errors.color ? "border-red-500" : "border-gray-300"
+            }`}
           />
+          {errors.color && <p className="text-red-500 text-sm mt-1">{errors.color}</p>}
         </div>
 
         {/* PRICE PER DAY */}

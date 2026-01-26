@@ -3,7 +3,7 @@ import axios from "axios";
 
 const API_URL = import.meta.env.VITE_BASE_URL;
 
-export const fetchCars = createAsyncThunk("cars/fetchCars", async () => {
+export const getCars = createAsyncThunk("cars/getCars", async () => {
   const res = await axios.get(`${API_URL}/cars`);
   return res.data;
 });
@@ -23,14 +23,14 @@ const carsSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(fetchCars.pending, (state) => {
+      .addCase(getCars.pending, (state) => {
         state.status = "loading";
       })
-      .addCase(fetchCars.fulfilled, (state, action) => {
+      .addCase(getCars.fulfilled, (state, action) => {
         state.status = "succeeded";
         state.cars = action.payload;
       })
-      .addCase(fetchCars.rejected, (state, action) => {
+      .addCase(getCars.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.error.message;
       })
