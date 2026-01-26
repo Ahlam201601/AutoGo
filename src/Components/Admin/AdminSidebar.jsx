@@ -4,7 +4,7 @@ import { Car, Calendar, Plus, LogOut } from 'lucide-react';
 
 const AdminSidebar = ({ activeTab, setActiveTab }) => {
   return (
-    <div className="w-64 bg-[#1a2332] text-white h-screen sticky top-0 flex flex-col">
+    <div className="w-64 bg-[#1a2332] text-white h-screen fixed left-0 top-0 flex flex-col z-50">
       {/* Header */}
       <div className="p-6 border-b border-gray-700">
         <div className="flex items-center gap-3 mb-2">

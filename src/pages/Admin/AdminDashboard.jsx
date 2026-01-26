@@ -10,10 +10,9 @@ const AdminDashboard = () => {
 
   return (
     <div className="min-h-screen bg-gray-100">
-      <div className="flex">
-        <AdminSidebar activeTab={activeTab} setActiveTab={setActiveTab} />
-        <div className="flex-1 p-8">
-          <h1 className="text-3xl font-bold mb-8">Admin Dashboard</h1>
+      <AdminSidebar activeTab={activeTab} setActiveTab={setActiveTab} />
+      <div className="ml-64">
+        <div className="p-8">
           {activeTab === 'cars' && <CarsList />}
           {activeTab === 'add-vehicle' && <AddCar />}
           {activeTab === 'reservations' && <AdminReservations />}
