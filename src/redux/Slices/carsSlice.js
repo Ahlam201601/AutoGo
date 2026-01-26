@@ -3,14 +3,22 @@ import axios from "axios";
 
 const API_URL = import.meta.env.VITE_BASE_URL;
 
+// Get all cars
 export const getCars = createAsyncThunk("cars/getCars", async () => {
   const res = await axios.get(`${API_URL}/cars`);
   return res.data;
 });
 
+// Add a car
 export const addCar = createAsyncThunk("cars/addCar", async (carData) => {
   const res = await axios.post(`${API_URL}/cars`, carData);
   return res.data;
+});
+
+// Delete a car
+export const deleteCar = createAsyncThunk("cars/deleteCar", async (id) => {
+  await axios.delete(`${API_URL}/cars/${id}`);
+  return id; 
 });
 
 const carsSlice = createSlice({
@@ -36,6 +44,9 @@ const carsSlice = createSlice({
       })
       .addCase(addCar.fulfilled, (state, action) => {
         state.cars.push(action.payload);
+      })
+      .addCase(deleteCar.fulfilled, (state, action) => {
+        state.cars = state.cars.filter((car) => car.id !== action.payload);
       });
   },
 });

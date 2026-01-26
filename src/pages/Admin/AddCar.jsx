@@ -46,9 +46,8 @@ export default function AddCar() {
       });
       const data = await res.json();
       setForm((prev) => ({ ...prev, image: data.secure_url }));
-      toast.success("Image uploaded successfully 📸");
+      console.log("Image uploaded successfully 📸", data.secure_url);
     } catch (error) {
-      toast.error("Image upload failed");
       console.error(error);
     } finally {
       setLoadingImg(false);

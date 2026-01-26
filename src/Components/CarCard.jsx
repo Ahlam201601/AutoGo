@@ -1,6 +1,8 @@
 import { FiEdit, FiTrash2, FiSettings, FiDroplet, FiTag } from "react-icons/fi";
+import { useState } from "react";
 
-export default function CarCard({ car, isAdmin, onDelete, onEdit }) {
+export default function CarCard({ car, isAdmin, onDeleteClick, onEdit }) {
+
   return (
     <div className="bg-white rounded-3xl overflow-hidden shadow-sm border border-gray-100 transition-all duration-300 hover:shadow-md group max-w-sm">
       {/* IMAGE SECTION */}
@@ -67,7 +69,7 @@ export default function CarCard({ car, isAdmin, onDelete, onEdit }) {
               </button>
 
               <button
-                onClick={() => onDelete(car.id)}
+                onClick={() => onDeleteClick(car)}
                 className="flex-1 flex items-center justify-center p-2 border border-red-500 text-red-500 rounded-xl hover:bg-red-50 transition-colors"
               >
                 <FiTrash2 size={18} />
