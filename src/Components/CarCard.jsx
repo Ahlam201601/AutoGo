@@ -1,9 +1,17 @@
 import { FiEdit, FiTrash2, FiSettings, FiDroplet, FiTag } from "react-icons/fi";
 import { useState } from "react";
+import EditCar from "../pages/Admin/EditCar";
 
-export default function CarCard({ car, isAdmin, onDeleteClick, onEdit }) {
+export default function CarCard({ car, isAdmin, onDeleteClick }) {
+  const [editCar, setEditCar] = useState(false);
+  const [currentCar, setCurrentCar] = useState(car);
+
+  const handleUpdate = (updatedCar) => {
+    setCurrentCar(updatedCar);
+  };
 
   return (
+    <>
     <div className="bg-white rounded-3xl overflow-hidden shadow-sm border border-gray-100 transition-all duration-300 hover:shadow-md group max-w-sm">
       {/* IMAGE SECTION */}
       <div className="relative h-52 overflow-hidden">
@@ -61,7 +69,7 @@ export default function CarCard({ car, isAdmin, onDeleteClick, onEdit }) {
           {isAdmin ? (
             <>
               <button
-                onClick={() => onEdit(car)}
+                onClick={() => setEditCar(true)}
                 className="flex-3 flex items-center justify-center gap-2 py-2 px-3 bg-white border border-gray-200 text-[#1A202C] text-sm font-semibold rounded-xl hover:bg-gray-50 transition-colors"
               >
                 <FiEdit size={16} />
@@ -69,7 +77,7 @@ export default function CarCard({ car, isAdmin, onDeleteClick, onEdit }) {
               </button>
 
               <button
-                onClick={() => onDeleteClick(car)}
+                onClick={() => onDeleteClick(currentCar.id)}
                 className="flex-1 flex items-center justify-center p-2 border border-red-500 text-red-500 rounded-xl hover:bg-red-50 transition-colors"
               >
                 <FiTrash2 size={18} />
@@ -83,5 +91,17 @@ export default function CarCard({ car, isAdmin, onDeleteClick, onEdit }) {
         </div>
       </div>
     </div>
+
+    {/* EDIT POPUP */}
+      {editCar && (
+        <EditCar 
+          car={currentCar} 
+          onClose={() => setEditCar(false)} 
+          onUpdate={handleUpdate} 
+        />
+      )}
+    </>
+
+    
   );
 }
