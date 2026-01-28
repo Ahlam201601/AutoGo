@@ -130,6 +130,7 @@ export default function EditCar({ car, onClose }) {
               onChange={handleChange}
               className="w-full border p-3 rounded-xl mt-1"
             />
+            {errors.brand && <p className="text-red-500 text-sm">{errors.brand}</p>}
           </div>
 
           {/* MODEL */}
@@ -142,6 +143,7 @@ export default function EditCar({ car, onClose }) {
               onChange={handleChange}
               className="w-full border p-3 rounded-xl mt-1"
             />
+            {errors.model && <p className="text-red-500 text-sm">{errors.model}</p>}
           </div>
 
           {/* YEAR */}
@@ -154,6 +156,7 @@ export default function EditCar({ car, onClose }) {
               onChange={handleChange}
               className="w-full border p-3 rounded-xl mt-1"
             />
+            {errors.year && <p className="text-red-500 text-sm">{errors.year}</p>}
           </div>
 
           {/* PRICE */}
@@ -166,6 +169,7 @@ export default function EditCar({ car, onClose }) {
               onChange={handleChange}
               className="w-full border p-3 rounded-xl mt-1"
             />
+            {errors.pricePerDay && <p className="text-red-500 text-sm">{errors.pricePerDay}</p>}
           </div>
 
           {/* SEATS */}
@@ -178,6 +182,7 @@ export default function EditCar({ car, onClose }) {
               onChange={handleChange}
               className="w-full border p-3 rounded-xl mt-1"
             />
+            {errors.seats && <p className="text-red-500 text-sm">{errors.seats}</p>}
           </div>
 
           {/* CATEGORY */}
@@ -196,6 +201,7 @@ export default function EditCar({ car, onClose }) {
               <option value="Luxury">Luxury</option>
               <option value="4x4">4x4</option>
             </select>
+            {errors.category && <p className="text-red-500 text-sm">{errors.category}</p>}
           </div>
 
           {/* TRANSMISSION */}
@@ -211,6 +217,7 @@ export default function EditCar({ car, onClose }) {
               <option value="Automatic">Automatic</option>
               <option value="Manual">Manual</option>
             </select>
+            {errors.transmission && <p className="text-red-500 text-sm">{errors.transmission}</p>}
           </div>
 
           {/* FUEL */}
@@ -228,6 +235,7 @@ export default function EditCar({ car, onClose }) {
               <option value="Hybrid">Hybrid</option>
               <option value="Electric">Electric</option>
             </select>
+            {errors.fuel && <p className="text-red-500 text-sm">{errors.fuel}</p>}
           </div>
 
           {/* DESCRIPTION */}
@@ -255,6 +263,7 @@ export default function EditCar({ car, onClose }) {
               placeholder="GPS, Bluetooth, AC"
               className="w-full border p-3 rounded-xl mt-1"
             />
+            {errors.equipments && <p className="text-red-500 text-sm">{errors.equipments}</p>}
           </div>
 
           {/* IMAGE */}
@@ -265,6 +274,7 @@ export default function EditCar({ car, onClose }) {
             {form.image && (
               <img src={form.image} className="w-32 h-32 mt-2 rounded-xl object-cover" />
             )}
+            {errors.image && <p className="text-red-500 text-sm">{errors.image}</p>}
           </div>
 
           {/* BUTTON */}

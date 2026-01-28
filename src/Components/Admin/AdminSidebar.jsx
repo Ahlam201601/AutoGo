@@ -1,4 +1,3 @@
-import React, { useEffect } from "react";
 import { Car, Calendar, Plus, LogOut } from "lucide-react";
 
 const AdminSidebar = ({ activeTab, setActiveTab }) => {
