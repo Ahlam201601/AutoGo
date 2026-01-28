@@ -38,7 +38,6 @@ export default function CarsList() {
   const filteredCars = cars.filter((car) => {
     return (
       search === "" ||
-      car.name?.toLowerCase().includes(search.toLowerCase()) ||
       car.brand?.toLowerCase().includes(search.toLowerCase()) ||
       car.model?.toLowerCase().includes(search.toLowerCase())
     );
@@ -81,7 +80,7 @@ export default function CarsList() {
             <FiSearch className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
             <input
               type="text"
-              placeholder="Search by name, brand, or model..."
+              placeholder="Search by brand, or model..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               className="w-full pl-12 pr-12 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition-all duration-200 bg-white shadow-sm"
