@@ -2,6 +2,7 @@ import { useParams, Link, Navigate, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useState } from "react";
 import Navbar from "../components/Navbar";
+import { addToWishlist, removeFromWishlist } from "../redux/Slices/wishlistSlice";
 import {
   FiArrowLeft,
   FiHeart,
@@ -20,6 +21,7 @@ export default function CarDetailsPage() {
 
   const car = cars.find((c) => c.id === id);
   if (!car) return null;
+
 
   return (
     <>
@@ -63,6 +65,7 @@ export default function CarDetailsPage() {
                   }
                 />
               </button>
+              
             </div>
 
             {/* RIGHT COLUMN - DETAILS */}

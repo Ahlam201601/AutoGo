@@ -1,20 +1,15 @@
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import { getCars } from "../redux/Slices/carsSlice";
 import { addReservation } from "../redux/Slices/reservationSlice";
-import {
-  FiArrowLeft,
-  FiUser,
-  FiMail,
-  FiPhone,
-  FiCalendar,
-} from "react-icons/fi";
+import { FiArrowLeft, FiUser, FiMail, FiPhone, FiCalendar } from "react-icons/fi";
 
 export default function ReservationPage() {
   const { id } = useParams();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { cars, status } = useSelector((state) => state.cars);
 
   const [form, setForm] = useState({
@@ -40,18 +35,12 @@ export default function ReservationPage() {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  // ====== CALCULATIONS ======
   const calculateDuration = () => {
     if (!form.startDate || !form.endDate) return 0;
-
     const start = new Date(form.startDate);
     const end = new Date(form.endDate);
-
     if (end <= start) return 0;
-
-    return (
-      (end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24)
-    );
+    return (end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24);
   };
 
   const duration = calculateDuration();
@@ -63,29 +52,31 @@ export default function ReservationPage() {
     form.phone &&
     form.startDate &&
     form.endDate &&
-    duration > 0;
+    duration;
 
-  // ====== SUBMIT ======
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!isFormValid) return;
 
-    dispatch(
-      addReservation({
-        id: Date.now().toString(),
-        carId: car.id,
-        carName: `${car.brand} ${car.model}`,
-        customerName: form.name,
-        customerEmail: form.email,
-        customerPhone: form.phone,
-        startDate: form.startDate,
-        endDate: form.endDate,
-        duration,
-        totalPrice,
-        status: "pending",
-        createdAt: new Date().toISOString(),
-      })
-    );
+    const reservation = {
+      id: Date.now().toString(),
+      carId: car.id,
+      carImage:car.image,
+      carName: `${car.brand} ${car.model}`,
+      customerName: form.name,
+      customerEmail: form.email,
+      customerPhone: form.phone,
+      startDate: form.startDate,
+      endDate: form.endDate,
+      duration,
+      totalPrice,
+      status: "pending",
+      createdAt: new Date().toISOString(),
+    };
+
+    dispatch(addReservation(reservation));
+
+    navigate("/recap", { state: { reservation } });
   };
 
   return (
@@ -93,7 +84,6 @@ export default function ReservationPage() {
       <Navbar />
 
       <div className="min-h-screen bg-linear-to-br from-gray-50 to-gray-100 pt-24 px-4 md:px-8 pb-12">
-        {/* BACK LINK */}
         <div className="max-w-6xl mx-auto mb-6">
           <Link
             to={`/cars/${car.id}`}
@@ -104,46 +94,27 @@ export default function ReservationPage() {
           </Link>
         </div>
 
-        {/* TITLE */}
         <div className="max-w-6xl mx-auto mb-8">
           <h1 className="text-3xl md:text-4xl font-bold text-gray-900">Reservation</h1>
         </div>
 
         <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-5 gap-6 lg:gap-8">
-          {/* Car Details Card - 2 columns */}
           <div className="lg:col-span-2">
             <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-5 md:p-6 h-fit sticky top-24">
-              <img
-                src={car.image}
-                alt={car.brand}
-                className="w-full h-48 md:h-56 object-cover rounded-lg mb-6"
-              />
-              
+              <img src={car.image} alt={car.brand} className="w-full h-48 md:h-56 object-cover rounded-lg mb-6" />
               <div className="space-y-3">
-                <h2 className="text-xl md:text-2xl font-bold text-gray-900">
-                  {car.brand} {car.model}
-                </h2>
-                <p className="text-gray-500 text-sm md:text-base">
-                  {car.year} • {car.color || "Alpine White"}
-                </p>
-                
+                <h2 className="text-xl md:text-2xl font-bold text-gray-900">{car.brand} {car.model}</h2>
+                <p className="text-gray-500 text-sm md:text-base">{car.year} • {car.color || "Alpine White"}</p>
                 <div className="pt-4 border-t border-gray-100">
-                  <span className="text-2xl md:text-3xl font-bold text-orange-500">
-                    {car.pricePerDay} DH
-                  </span>
+                  <span className="text-2xl md:text-3xl font-bold text-orange-500">{car.pricePerDay} DH</span>
                   <span className="text-gray-500 text-sm ml-1">/ day</span>
                 </div>
               </div>
             </div>
           </div>
 
-          {/* FORM - 3 columns */}
-          <form
-            onSubmit={handleSubmit}
-            className="lg:col-span-3 bg-white rounded-xl shadow-sm border border-gray-100 p-6 md:p-8"
-          >
+          <form onSubmit={handleSubmit} className="lg:col-span-3 bg-white rounded-xl shadow-sm border border-gray-100 p-6 md:p-8">
             <h2 className="text-xl md:text-2xl font-bold text-gray-900 mb-6">Personal Information</h2>
-
             <div className="space-y-5">
               {/* NAME */}
               <div>
@@ -240,9 +211,7 @@ export default function ReservationPage() {
                   </div>
                 </div>
               </div>
-
-              {/* DURATION + TOTAL */}
-               {duration > 0 && (
+              {duration > 0 && (
                 <div className="bg-gray-50 border border-gray-200 rounded-lg p-5 mt-6">
                   <div className="flex justify-between items-center mb-3">
                     <span className="text-gray-600">Duration</span>
@@ -250,14 +219,11 @@ export default function ReservationPage() {
                   </div>
                   <div className="flex justify-between items-center">
                     <span className="text-gray-600">Total</span>
-                    <span className="font-bold text-xl text-orange-500">
-                      {totalPrice} DH
-                    </span>
+                    <span className="font-bold text-xl text-orange-500">{totalPrice} DH</span>
                   </div>
                 </div>
               )}
 
-              {/* BUTTON */}
               <button
                 type="submit"
                 disabled={!isFormValid}

@@ -1,10 +1,14 @@
 import { Car, Calendar, Plus, LogOut } from "lucide-react";
+import { NavLink } from "react-router-dom";
 
-const AdminSidebar = ({ activeTab, setActiveTab }) => {
+const AdminSidebar = () => {
+  const linkClass = ({ isActive }) =>
+    `w-full text-left px-4 py-3 rounded-lg transition-colors flex items-center gap-3 ${
+      isActive ? "bg-orange-500 text-white" : "text-gray-300 hover:bg-[#2a3442]"
+    }`;
 
   return (
     <div className="w-64 bg-[#1a2332] text-white h-screen fixed left-0 top-0 flex flex-col z-50">
-      
       {/* Header */}
       <div className="p-6 border-b border-gray-700">
         <div className="flex items-center gap-3 mb-2">
@@ -19,17 +23,9 @@ const AdminSidebar = ({ activeTab, setActiveTab }) => {
       {/* Navigation */}
       <nav className="flex-1 p-4">
         <ul className="space-y-2">
-
           {/* Cars */}
           <li>
-            <button
-              onClick={() => setActiveTab("cars")}
-              className={`w-full text-left px-4 py-3 rounded-lg transition-colors flex items-center gap-3 ${
-                activeTab === "cars"
-                  ? "bg-orange-500 text-white"
-                  : "text-gray-300 hover:bg-[#2a3442]"
-              }`}
-            >
+            <NavLink to="/admin" end className={linkClass}>
               <div className="w-5 h-5 grid grid-cols-2 gap-0.5">
                 <div className="w-2 h-2 bg-current rounded-sm"></div>
                 <div className="w-2 h-2 bg-current rounded-sm"></div>
@@ -37,39 +33,24 @@ const AdminSidebar = ({ activeTab, setActiveTab }) => {
                 <div className="w-2 h-2 bg-current rounded-sm"></div>
               </div>
               Cars
-            </button>
+            </NavLink>
           </li>
 
           {/* Add Car */}
           <li>
-            <button
-              onClick={() => setActiveTab("add-vehicle")}
-              className={`w-full text-left px-4 py-3 rounded-lg transition-colors flex items-center gap-3 ${
-                activeTab === "add-vehicle"
-                  ? "bg-orange-500 text-white"
-                  : "text-gray-300 hover:bg-[#2a3442]"
-              }`}
-            >
+            <NavLink to="/admin/add" className={linkClass}>
               <Plus className="w-5 h-5" />
               Add Car
-            </button>
+            </NavLink>
           </li>
 
           {/* Reservations */}
           <li>
-            <button
-              onClick={() => setActiveTab("reservations")}
-              className={`w-full text-left px-4 py-3 rounded-lg transition-colors flex items-center gap-3 ${
-                activeTab === "reservations"
-                  ? "bg-orange-500 text-white"
-                  : "text-gray-300 hover:bg-[#2a3442]"
-              }`}
-            >
+            <NavLink to="/admin/reservation" className={linkClass}>
               <Calendar className="w-5 h-5" />
               Reservations
-            </button>
+            </NavLink>
           </li>
-
         </ul>
       </nav>
 

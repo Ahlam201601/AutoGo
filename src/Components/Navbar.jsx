@@ -1,11 +1,13 @@
 import { useState } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { Menu, X, Heart, LogIn } from "lucide-react";
-import logo from '../../public/images/logo.svg'
+import logo from '/images/logo.svg'
+import { useSelector } from "react-redux";
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
+  const { total } = useSelector(state => state.wishlist);
   const location = useLocation();
 
   const isActive = (path) => {
@@ -91,10 +93,14 @@ export default function Navbar() {
           {/* ACTIONS */}
           <div className="hidden lg:flex items-center space-x-4">
             {/* Wishlist */}
-            <button onClick={()=>{navigate("/wishlist")}}
-            className="relative p-3 rounded-full bg-orange-400/10 text-orange-400 hover:bg-orange-400/20 hover:scale-105 transition">
-              <Heart size={22} />
-            </button>
+            <button className="relative p-2 rounded-full text-orange-400 hover:text-yellow-600 transition" onClick={() => navigate("/wishlist")}>
+        <Heart size={22} />
+        {total > 0 && (
+          <span className="absolute -top-2 -right-2 bg-yellow-500 text-black text-[10px] w-4 h-4 flex items-center justify-center rounded-full">
+            {total}
+          </span>
+        )}
+      </button>
 
             {/* Login */}
             <Link

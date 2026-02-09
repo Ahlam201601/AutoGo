@@ -9,10 +9,12 @@ import Login from './pages/Admin/Login'
 import AdminDashboard from './pages/Admin/AdminDashboard';
 import AddCar from "./pages/Admin/AddCar"
 import AdminReservations from "./pages/Admin/AdminReservations"
+import CarsList from "./pages/Admin/CarsList";
 import Wishlist from './pages/Wishlist';
 import CarDetails from './pages/CarDetails';
 import { Toaster } from "react-hot-toast";
 import ReservationPage from './pages/ReservationPage';
+import RecapPage from './pages/RecapPage';
 
 
 
@@ -29,12 +31,15 @@ function App() {
         <Route path='/contact' element={<Contact/>}/>
         <Route path='/wishlist' element={<Wishlist/>}/>
         <Route path='/login' element={<Login/>}/>
-        <Route path='/admin/dashboard' element={<AdminDashboard/>}/>
-        <Route path='/admin/add' element={<AddCar/>}/>
-        <Route path='/admin/reservation' element={<AdminReservations/>}/>
+        <Route path='/admin' element={<AdminDashboard/>}>
+          <Route index element={<CarsList />} />
+          <Route path='add' element={<AddCar/>}/>
+          <Route path='reservation' element={<AdminReservations/>}/>
+        </Route>
         <Route path='/cars' element={<Cars/>}/>
         <Route path="/cars/:id" element={<CarDetails />} />
         <Route path="/reservation/:id" element={<ReservationPage />} />
+        <Route path="/recap" element={<RecapPage />} />
 
         
         

@@ -6,21 +6,39 @@ import {
   FiUsers,
   FiZap,
   FiBattery,
+  FiHeart,
 } from "react-icons/fi";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { addToWishlist, removeFromWishlist } from "../redux/Slices/wishlistSlice";
 import EditCar from "../pages/Admin/EditCar";
 
 export default function CarCard({ car, isAdmin, onDeleteClick }) {
   const [editCar, setEditCar] = useState(false);
   const [currentCar, setCurrentCar] = useState(car);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  // Vérifier si la voiture est déjà dans la wishlist
+  const wishlistItems = useSelector(state => state.wishlist?.items || []);
+  const isInWishlist = wishlistItems.some(item => item.id === car.id);
 
   const handleUpdate = (updatedCar) => {
     setCurrentCar(updatedCar);
   };
 
-  // Fonction pour retourner l'icône de transmission appropriée
+  // Ajouter / retirer de la wishlist
+  const handleWishlistClick = (e) => {
+    e.stopPropagation();
+    if (isInWishlist) {
+      dispatch(removeFromWishlist(car.id));
+    } else {
+      dispatch(addToWishlist(car));
+    }
+  };
+
+  // Icône transmission
   const getTransmissionIcon = () => {
     if (car.transmission?.toLowerCase().includes("auto")) {
       return <FiZap className="text-gray-500" size={16} />;
@@ -28,7 +46,7 @@ export default function CarCard({ car, isAdmin, onDeleteClick }) {
     return <FiSettings className="text-gray-500" size={16} />;
   };
 
-  // Fonction pour retourner l'icône de carburant appropriée
+  // Icône carburant
   const getFuelIcon = () => {
     const fuel = car.fuel?.toLowerCase();
     if (
@@ -44,7 +62,7 @@ export default function CarCard({ car, isAdmin, onDeleteClick }) {
   return (
     <>
       <div className="bg-white rounded-3xl overflow-hidden shadow-sm border border-gray-100 transition-all duration-300 hover:shadow-md group max-w-sm">
-        {/* IMAGE SECTION */}
+        {/* IMAGE */}
         <div className="relative h-52 overflow-hidden">
           <img
             src={car.image || "/car-placeholder.jpg"}
@@ -56,6 +74,22 @@ export default function CarCard({ car, isAdmin, onDeleteClick }) {
           <div className="absolute top-3 left-3 bg-[#1A202C]/80 backdrop-blur-sm text-white text-[10px] uppercase tracking-wider font-bold px-3 py-1 rounded-lg shadow-lg">
             {car.category}
           </div>
+
+          {/* HEART WISHLIST BUTTON */}
+          <button
+            onClick={handleWishlistClick}
+            className={`absolute top-3 right-3 p-2 rounded-full shadow-md transition-colors ${
+              isInWishlist
+                ? "bg-white text-yellow-500"
+                : "bg-white text-gray-600 hover:bg-yellow-500 hover:text-white"
+            }`}
+          >
+            <FiHeart
+              size={18}
+              fill={isInWishlist ? "yellow" : "none"}
+              stroke="currentColor"
+            />
+          </button>
         </div>
 
         {/* CONTENT */}
@@ -77,7 +111,7 @@ export default function CarCard({ car, isAdmin, onDeleteClick }) {
           {/* YEAR */}
           <p className="text-gray-400 text-xs mb-3">{car.year}</p>
 
-          {/* FEATURES - Sur une seule ligne sans fond */}
+          {/* FEATURES */}
           <div className="flex items-center justify-between mb-4">
             {/* Transmission */}
             <div className="flex flex-col items-center gap-1 text-center">
