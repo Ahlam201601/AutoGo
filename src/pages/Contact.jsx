@@ -71,7 +71,7 @@ export default function Contact() {
                     </div>
                     <div>
                       <h3 className="font-semibold text-gray-800">Our Address</h3>
-                      <p className="text-gray-600 mt-1">123 Street Name, City, Country</p>
+                      <p className="text-gray-600 mt-1">123 Street Name, Nouaceur, Moroco</p>
                     </div>
                   </div>
 
@@ -81,7 +81,7 @@ export default function Contact() {
                     </div>
                     <div>
                       <h3 className="font-semibold text-gray-800">Phone Number</h3>
-                      <p className="text-gray-600 mt-1">+1 (123) 456-7890</p>
+                      <p className="text-gray-600 mt-1">06 456-78906</p>
                     </div>
                   </div>
 

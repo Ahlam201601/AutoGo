@@ -1,9 +1,12 @@
 import { useLocation, Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setDraftReservation } from "../redux/Slices/reservationSlice";
 import Navbar from "../components/Navbar";
 import { FiArrowLeft } from "react-icons/fi";
 
 export default function RecapPage() {
   const location = useLocation();
+  const dispatch = useDispatch();
   const { reservation } = location.state || {};
 
   if (!reservation) return <p className="text-center mt-20">No reservation found.</p>;
@@ -34,12 +37,21 @@ export default function RecapPage() {
           {/* RECAP CARD */}
           <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 md:p-8 flex flex-col justify-between">
             <div>
-              <Link
-                to={`/reservation/${reservation.carId}`}
-                className="inline-flex items-center gap-2 text-gray-600 hover:text-orange-500 text-sm font-medium mb-4"
+              <button
+                onClick={() => {
+                  dispatch(setDraftReservation({
+                    customerName: reservation.customerName,
+                    customerEmail: reservation.customerEmail,
+                    customerPhone: reservation.customerPhone,
+                    startDate: reservation.startDate,
+                    endDate: reservation.endDate,
+                  }));
+                }}
+                className="inline-flex items-center gap-2 text-gray-600 hover:text-orange-500 text-sm font-medium mb-4 bg-transparent border-none cursor-pointer"
               >
-                <FiArrowLeft size={18} /> Modifier
-              </Link>
+                <FiArrowLeft size={18} />
+                <Link to={`/reservation/${reservation.carId}`}>Modifier</Link>
+              </button>
 
               <h2 className="text-2xl font-bold text-gray-900 mb-6">Récapitulatif</h2>
 

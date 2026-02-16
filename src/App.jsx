@@ -15,8 +15,7 @@ import CarDetails from './pages/CarDetails';
 import { Toaster } from "react-hot-toast";
 import ReservationPage from './pages/ReservationPage';
 import RecapPage from './pages/RecapPage';
-
-
+import ProtectedRoute from './Components/ProtectedRoute';
 
 function App() {
 
@@ -31,11 +30,16 @@ function App() {
         <Route path='/contact' element={<Contact/>}/>
         <Route path='/wishlist' element={<Wishlist/>}/>
         <Route path='/login' element={<Login/>}/>
-        <Route path='/admin' element={<AdminDashboard/>}>
-          <Route index element={<CarsList />} />
-          <Route path='add' element={<AddCar/>}/>
-          <Route path='reservation' element={<AdminReservations/>}/>
+        
+        {/* Protected Admin Routes */}
+        <Route element={<ProtectedRoute />}>
+          <Route path='/admin' element={<AdminDashboard/>}>
+            <Route index element={<CarsList />} />
+            <Route path='add' element={<AddCar/>}/>
+            <Route path='reservation' element={<AdminReservations/>}/>
+          </Route>
         </Route>
+
         <Route path='/cars' element={<Cars/>}/>
         <Route path="/cars/:id" element={<CarDetails />} />
         <Route path="/reservation/:id" element={<ReservationPage />} />

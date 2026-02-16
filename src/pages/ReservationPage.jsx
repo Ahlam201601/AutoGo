@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import { getCars } from "../redux/Slices/carsSlice";
-import { addReservation } from "../redux/Slices/reservationSlice";
+import { addReservation, clearDraftReservation } from "../redux/Slices/reservationSlice";
 import { FiArrowLeft, FiUser, FiMail, FiPhone, FiCalendar } from "react-icons/fi";
 
 export default function ReservationPage() {
@@ -11,6 +11,7 @@ export default function ReservationPage() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { cars, status } = useSelector((state) => state.cars);
+  const { draftReservation } = useSelector((state) => state.reservation);
 
   const [form, setForm] = useState({
     name: "",
@@ -21,6 +22,19 @@ export default function ReservationPage() {
   });
 
   const today = new Date().toISOString().split("T")[0];
+
+  // Load draft data if available
+  useEffect(() => {
+    if (draftReservation) {
+      setForm({
+        name: draftReservation.customerName || "",
+        email: draftReservation.customerEmail || "",
+        phone: draftReservation.customerPhone || "",
+        startDate: draftReservation.startDate || "",
+        endDate: draftReservation.endDate || "",
+      });
+    }
+  }, [draftReservation]);
 
   useEffect(() => {
     if (status === "idle") {
@@ -75,6 +89,7 @@ export default function ReservationPage() {
     };
 
     dispatch(addReservation(reservation));
+    dispatch(clearDraftReservation()); // Clear draft after successful reservation
 
     navigate("/recap", { state: { reservation } });
   };

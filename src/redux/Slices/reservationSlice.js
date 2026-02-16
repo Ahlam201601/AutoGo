@@ -15,6 +15,7 @@ const saveToStorage = (reservations) => {
 
 const initialState = {
   reservations: loadFromStorage(),
+  draftReservation: null, // Stores temporary reservation data for editing
 };
 
 const reservationSlice = createSlice({
@@ -39,6 +40,14 @@ const reservationSlice = createSlice({
       state.reservations = [];
       saveToStorage([]);
     },
+
+    setDraftReservation: (state, action) => {
+      state.draftReservation = action.payload;
+    },
+
+    clearDraftReservation: (state) => {
+      state.draftReservation = null;
+    },
   },
 });
 
@@ -46,6 +55,8 @@ export const {
   addReservation,
   updateReservationStatus,
   clearReservations,
+  setDraftReservation,
+  clearDraftReservation,
 } = reservationSlice.actions;
 
 export default reservationSlice.reducer;

@@ -1,7 +1,9 @@
-import { useParams, Link, Navigate, useNavigate } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useState } from "react";
 import Navbar from "../components/Navbar";
+import { Check } from "lucide-react";
+
 import { addToWishlist, removeFromWishlist } from "../redux/Slices/wishlistSlice";
 import {
   FiArrowLeft,
@@ -92,8 +94,7 @@ export default function CarDetailsPage() {
                   Description
                 </h2>
                 <p className="text-gray-700 leading-relaxed">
-                  {car.description ||
-                    `The ${car.brand} ${car.model} represents the pinnacle of automotive luxury. With a refined interior and cutting-edge technology, it delivers an exceptional driving experience.`}
+                  {car.description}
                 </p>
               </div>
 
@@ -103,21 +104,21 @@ export default function CarDetailsPage() {
                   <FiDroplet className="text-orange-500" size={20} />
                   <div>
                     <p className="text-sm text-gray-500">Fuel</p>
-                    <p className="font-semibold text-gray-900">{car.fuel || "Hybrid"}</p>
+                    <p className="font-semibold text-gray-900">{car.fuel}</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-3 p-4 bg-orange-50 rounded-lg">
                   <FiUsers className="text-orange-500" size={20} />
                   <div>
                     <p className="text-sm text-gray-500">Seats</p>
-                    <p className="font-semibold text-gray-900">{car.seats || 5} seats</p>
+                    <p className="font-semibold text-gray-900">{car.seats} seats</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-3 p-4 bg-orange-50 rounded-lg">
                   <FiSettings className="text-orange-500" size={20} />
                   <div>
                     <p className="text-sm text-gray-500">Transmission</p>
-                    <p className="font-semibold text-gray-900">{car.transmission || "Automatic"}</p>
+                    <p className="font-semibold text-gray-900">{car.transmission}</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-3 p-4 bg-orange-50 rounded-lg">
@@ -138,7 +139,7 @@ export default function CarDetailsPage() {
                   <FiStar className="text-orange-500" size={20} />
                   <div>
                     <p className="text-sm text-gray-500">Color</p>
-                    <p className="font-semibold text-gray-900">{car.color || "Obsidian Black"}</p>
+                    <p className="font-semibold text-gray-900">{car.color}</p>
                   </div>
                 </div>
               </div>
@@ -152,37 +153,29 @@ export default function CarDetailsPage() {
                   Equipment
                 </h2>
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-x-6 gap-y-3">
-                  <div className="flex items-center gap-2 text-gray-700">
-                    <svg className="w-5 h-5 text-orange-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                    </svg>
-                    <span className="text-sm">GPS</span>
-                  </div>
-                  <div className="flex items-center gap-2 text-gray-700">
-                    <svg className="w-5 h-5 text-orange-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                    </svg>
-                    <span className="text-sm">Air Conditioning</span>
-                  </div>
-                  <div className="flex items-center gap-2 text-gray-700">
-                    <svg className="w-5 h-5 text-orange-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                    </svg>
-                    <span className="text-sm">Leather Seats</span>
-                  </div>
-                  <div className="flex items-center gap-2 text-gray-700">
-                    <svg className="w-5 h-5 text-orange-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                    </svg>
-                    <span className="text-sm">Rear Camera</span>
-                  </div>
-                  <div className="flex items-center gap-2 text-gray-700">
-                    <svg className="w-5 h-5 text-orange-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                    </svg>
-                    <span className="text-sm">Bluetooth</span>
-                  </div>
-                </div>
+    {car.equipments?.map((item, index) => (
+      <div
+        key={index}
+        className="flex items-center gap-2 text-gray-700"
+      >
+        <svg
+          className="w-5 h-5 text-orange-500 shrink-0"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M5 13l4 4L19 7"
+          />
+        </svg>
+
+        <span className="text-sm">{item}</span>
+      </div>
+    ))}
+  </div>
               </div>
 
               {/* ACTIONS */}

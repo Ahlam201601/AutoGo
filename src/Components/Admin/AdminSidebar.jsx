@@ -1,7 +1,19 @@
 import { Car, Calendar, Plus, LogOut } from "lucide-react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { logout } from "../../redux/Slices/authSlice";
+import toast from "react-hot-toast";
 
 const AdminSidebar = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    dispatch(logout());
+    toast.success("Déconnexion réussie");
+    navigate("/login");
+  };
+
   const linkClass = ({ isActive }) =>
     `w-full text-left px-4 py-3 rounded-lg transition-colors flex items-center gap-3 ${
       isActive ? "bg-orange-500 text-white" : "text-gray-300 hover:bg-[#2a3442]"
@@ -56,7 +68,10 @@ const AdminSidebar = () => {
 
       {/* Logout */}
       <div className="p-4 border-t border-gray-700">
-        <button className="w-full text-left px-4 py-3 text-gray-300 hover:bg-[#2a3442] rounded-lg transition-colors flex items-center gap-3">
+        <button 
+          onClick={handleLogout}
+          className="w-full text-left px-4 py-3 text-gray-300 hover:bg-[#2a3442] rounded-lg transition-colors flex items-center gap-3"
+        >
           <LogOut className="w-5 h-5" />
           Logout
         </button>
