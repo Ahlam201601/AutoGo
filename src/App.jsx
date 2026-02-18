@@ -25,8 +25,8 @@ function App() {
     <Toaster position="top-right" />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path='/voitures' element={<Cars/>}/>
-        <Route path='/ia' element={<Recommendations/>}/>
+        <Route path='/cars' element={<Cars/>}/>
+        <Route path='/recommendations' element={<Recommendations/>}/>
         <Route path='/contact' element={<Contact/>}/>
         <Route path='/wishlist' element={<Wishlist/>}/>
         <Route path='/login' element={<Login/>}/>
@@ -40,7 +40,6 @@ function App() {
           </Route>
         </Route>
 
-        <Route path='/cars' element={<Cars/>}/>
         <Route path="/cars/:id" element={<CarDetails />} />
         <Route path="/reservation/:id" element={<ReservationPage />} />
         <Route path="/recap" element={<RecapPage />} />

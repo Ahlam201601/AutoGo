@@ -42,7 +42,7 @@ export default function Cars() {
     <>
       <Navbar />
 
-      {/* Main Content avec fond blanc */}
+      {/* Main Content with white background */}
       <div className="min-h-screen bg-white pt-16">
         {/* Même container que la Navbar */}
         <div className="container mx-auto px-4 md:px-8 py-8">

@@ -10,7 +10,7 @@ const AdminSidebar = () => {
 
   const handleLogout = () => {
     dispatch(logout());
-    toast.success("Déconnexion réussie");
+    toast.success("Logout successful");
     navigate("/login");
   };
 

@@ -24,11 +24,11 @@ export default function Login() {
       if (email === 'admin@autogo.com' && password === 'admin123') {
         const mockUser = { id: 1, name: 'Admin', email: email, role: 'admin' };
         dispatch(loginSuccess(mockUser));
-        toast.success('Bienvenue, Admin !');
+        toast.success('Welcome, Admin!');
         navigate('/admin');
       } else {
-        dispatch(loginFailure('Identifiants invalides'));
-        toast.error('Email ou mot de passe incorrect');
+        dispatch(loginFailure('Invalid credentials'));
+        toast.error('Incorrect email or password');
       }
     }, 1000);
   };
@@ -59,7 +59,7 @@ export default function Login() {
               <Car className="text-orange-500 w-10 h-10" />
             </motion.div>
             <h1 className="text-3xl font-extrabold text-white tracking-tight">AutoGo Admin</h1>
-            <p className="text-orange-50 mt-1 text-center text-sm font-medium opacity-90">Accès sécurisé à l'administration</p>
+            <p className="text-orange-50 mt-1 text-center text-sm font-medium opacity-90">Secure admin access</p>
           </div>
 
           <form onSubmit={handleLogin} className="p-8 space-y-6 bg-white">
@@ -81,7 +81,7 @@ export default function Login() {
             </div>
 
             <div className="space-y-2">
-              <label className="text-sm font-bold text-gray-700 ml-1">Mot de passe</label>
+              <label className="text-sm font-bold text-gray-700 ml-1">Password</label>
               <div className="relative group">
                 <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-gray-400 group-focus-within:text-orange-500 transition-colors">
                   <Lock size={18} />
@@ -108,14 +108,14 @@ export default function Login() {
               ) : (
                 <>
                   <LogIn size={20} />
-                  <span>Se connecter</span>
+                  <span>Log In</span>
                 </>
               )}
             </motion.button>
           </form>
 
           <p className="pb-8 text-center text-xs text-gray-400 font-medium">
-            © 2026 AutoGo • Panel de Gestion
+            © 2026 AutoGo • Management Panel
           </p>
         </div>
       </motion.div>

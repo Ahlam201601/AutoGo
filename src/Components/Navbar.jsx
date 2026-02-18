@@ -1,212 +1,140 @@
+import { Link, NavLink } from "react-router-dom";
+import { FiHeart, FiLogIn, FiMenu, FiX } from "react-icons/fi"; // <-- Remplacé FiShoppingCart par FiHeart
 import { useState } from "react";
-import { Link, useNavigate, useLocation } from "react-router-dom";
-import { Menu, X, Heart, LogIn } from "lucide-react";
-import logo from '/images/logo.svg'
 import { useSelector } from "react-redux";
 
 export default function Navbar() {
-  const [open, setOpen] = useState(false);
-  const navigate = useNavigate();
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { total } = useSelector(state => state.wishlist);
-  const location = useLocation();
-
-  const isActive = (path) => {
-    if (path === "/") {
-      return location.pathname === "/";
-    }
-    return location.pathname.startsWith(path);
-  };
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-[#0b1d3a]/95 backdrop-blur-md py-3 shadow-xl">
-      <div className="container mx-auto px-4 md:px-8">
+    <header className="fixed top-0 left-0 w-full bg-gray-900/80 backdrop-blur-md z-50 shadow-lg">
+      <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
         <div className="flex items-center justify-between">
 
           {/* LOGO */}
-          <Link to="/" className="flex items-center group">
-            <div className="relative">
-              <img
-                src={logo}
-                alt="AutoGo"
-                className="h-12 w-auto transition-transform duration-300 group-hover:scale-105"
-              />
-              <div className="absolute -inset-2 bg-linear-to-r from-orange-400/20 to-transparent rounded-lg blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-            </div>
-            <span className="ml-3 text-2xl font-bold bg-linear-to-r from-orange-400 to-orange-300 bg-clip-text text-transparent">
-              AutoGo
-            </span>
+          <Link to="/" className="text-xl sm:text-2xl font-extrabold">
+            <span className="text-orange-500">Auto</span>
+            <span className="text-white">Go</span>
           </Link>
 
           {/* DESKTOP LINKS */}
-          <div className="hidden lg:flex items-center space-x-2">
+          <div className="hidden md:flex items-center gap-8 font-medium">
+            <NavLink
+              to="/"
+              className={({ isActive }) =>
+                `transition-colors hover:text-orange-500 ${isActive ? "text-orange-500" : "text-white"}`
+              }
+            >
+              Home
+            </NavLink>
 
-            {/* Home */}
-            <div className="relative px-2 group">
-              <Link to="/" className={`px-4 py-2 font-medium transition ${
-                isActive("/") ? "text-orange-400" : "text-gray-300 hover:text-orange-300"
-              }`}>
-                Home
-              </Link>
-              <span className={`absolute left-1/2 -bottom-1 h-0.5 bg-linear-to-r from-orange-400 to-orange-300 -translate-x-1/2 rounded-full transition-all duration-300 ${
-                isActive("/") ? "w-4/5" : "w-0 group-hover:w-4/5"
-              }`}></span>
-            </div>
+            <NavLink
+              to="/cars"
+              className={({ isActive }) =>
+                `transition-colors hover:text-orange-500 ${isActive ? "text-orange-500" : "text-white"}`
+              }
+            >
+              Cars
+            </NavLink>
 
-            {/* Cars */}
-            <div className="relative px-2 group">
-              <Link to="/cars" className={`px-4 py-2 font-medium transition ${
-                isActive("/cars") ? "text-orange-400" : "text-gray-300 hover:text-orange-300"
-              }`}>
-                Cars
-              </Link>
-              <span className={`absolute left-1/2 -bottom-1 h-0.5 bg-linear-to-r from-orange-400 to-orange-300 -translate-x-1/2 rounded-full transition-all duration-300 ${
-                isActive("/cars") ? "w-4/5" : "w-0 group-hover:w-4/5"
-              }`}></span>
-            </div>
+            <NavLink
+              to="/recommendations"
+              className={({ isActive }) =>
+                `transition-colors hover:text-orange-500 ${isActive ? "text-orange-500" : "text-white"}`
+              }
+            >
+              Recommendations
+            </NavLink>
 
-            {/* AI */}
-            <div className="relative px-2 group">
-              <Link to="/ai" className={`px-4 py-2 font-medium transition ${
-                isActive("/ai") ? "text-orange-400" : "text-gray-300 hover:text-orange-300"
-              }`}>
-                AI Recommendations
-              </Link>
-              <span className={`absolute left-1/2 -bottom-1 h-0.5 bg-linear-to-r from-orange-400 to-orange-300 -translate-x-1/2 rounded-full transition-all duration-300 ${
-                isActive("/ai") ? "w-4/5" : "w-0 group-hover:w-4/5"
-              }`}></span>
-            </div>
-
-            {/* Contact */}
-            <div className="relative px-2 group">
-              <Link to="/contact" className={`px-4 py-2 font-medium transition ${
-                isActive("/contact") ? "text-orange-400" : "text-gray-300 hover:text-orange-300"
-              }`}>
-                Contact
-              </Link>
-              <span className={`absolute left-1/2 -bottom-1 h-0.5 bg-linear-to-r from-orange-400 to-orange-300 -translate-x-1/2 rounded-full transition-all duration-300 ${
-                isActive("/contact") ? "w-4/5" : "w-0 group-hover:w-4/5"
-              }`}></span>
-            </div>
-
+            <NavLink
+              to="/contact"
+              className={({ isActive }) =>
+                `transition-colors hover:text-orange-500 ${isActive ? "text-orange-500" : "text-white"}`
+              }
+            >
+              Contact
+            </NavLink>
           </div>
 
-          {/* ACTIONS */}
-          <div className="hidden lg:flex items-center space-x-4">
-            {/* Wishlist */}
-            <button className="relative p-2 rounded-full text-orange-400 hover:text-yellow-600 transition" onClick={() => navigate("/wishlist")}>
-        <Heart size={22} />
-        {total > 0 && (
-          <span className="absolute -top-2 -right-2 bg-yellow-500 text-black text-[10px] w-4 h-4 flex items-center justify-center rounded-full">
-            {total}
-          </span>
-        )}
-      </button>
+          {/* DESKTOP ACTIONS */}
+          <div className="hidden md:flex items-center gap-4">
+            <Link
+              to="/wishlist"
+              className="relative text-white hover:text-orange-500 transition-colors"
+            >
+              <FiHeart size={22} /> {/* <-- Icône cœur */}
+              {total > 0 && (
+                <span className="absolute -top-2 -right-2 bg-orange-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">
+                  {total}
+                </span>
+              )}
+            </Link>
 
-            {/* Login */}
             <Link
               to="/login"
-              className={`flex items-center gap-2 bg-linear-to-r from-orange-400 to-orange-500 text-white px-6 py-2.5 rounded-full hover:from-orange-500 hover:to-orange-600 transition ${
-                isActive("/login") ? "ring-2 ring-orange-400 ring-offset-2 ring-offset-[#0b1d3a]" : ""
-              }`}
+              className="flex items-center gap-2 bg-orange-500 text-white px-4 py-2 rounded-lg font-semibold shadow-lg hover:bg-orange-600 transition-all duration-300"
             >
-              <LogIn size={18} />
-              <span className="font-medium">Admin</span>
+              <FiLogIn size={18} />
+              Admin
             </Link>
           </div>
 
-          {/* MOBILE BUTTON */}
-          <button
-            onClick={() => setOpen(!open)}
-            className="lg:hidden p-2 rounded-lg bg-orange-400/10 text-orange-400 hover:bg-orange-400/20 transition"
-          >
-            {open ? <X size={28} /> : <Menu size={28} />}
-          </button>
+          {/* MOBILE BUTTONS */}
+          <div className="flex md:hidden items-center gap-3">
+            <Link
+              to="/wishlist"
+              className="relative text-white hover:text-orange-500 transition-colors"
+            >
+              <FiHeart size={22} /> {/* <-- Icône cœur */}
+              {total > 0 && (
+                <span className="absolute -top-2 -right-2 bg-orange-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">
+                  {total}
+                </span>
+              )}
+            </Link>
+
+            <button
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              className="text-white hover:text-orange-500 transition-colors p-2"
+            >
+              {isMenuOpen ? <FiX size={24} /> : <FiMenu size={24} />}
+            </button>
+          </div>
         </div>
 
         {/* MOBILE MENU */}
-        <div className={`lg:hidden overflow-hidden transition-all duration-500 ${open ? "max-h-96 mt-4" : "max-h-0"}`}>
-          <div className="py-4 px-3 bg-linear-to-r from-[#0b1d3a] to-[#0a1a35] rounded-xl border border-orange-400/20 shadow-2xl space-y-2">
+        {isMenuOpen && (
+          <div className="md:hidden mt-4 pb-4 border-t border-gray-700 pt-4">
+            <div className="flex flex-col gap-4">
+              <NavLink to="/" onClick={() => setIsMenuOpen(false)} className="text-white hover:text-orange-500">
+                Home
+              </NavLink>
 
-            <Link 
-              to="/" 
-              onClick={() => setOpen(false)} 
-              className={`block px-4 py-3 rounded-lg transition ${
-                isActive("/") 
-                  ? "text-orange-400 bg-orange-400/10 border-l-4 border-orange-400" 
-                  : "text-gray-300 hover:text-orange-300 hover:bg-orange-400/5"
-              }`}
-            >
-              Home
-            </Link>
+              <NavLink to="/cars" onClick={() => setIsMenuOpen(false)} className="text-white hover:text-orange-500">
+                Cars
+              </NavLink>
 
-            <Link 
-              to="/cars" 
-              onClick={() => setOpen(false)} 
-              className={`block px-4 py-3 rounded-lg transition ${
-                isActive("/cars") 
-                  ? "text-orange-400 bg-orange-400/10 border-l-4 border-orange-400" 
-                  : "text-gray-300 hover:text-orange-300 hover:bg-orange-400/5"
-              }`}
-            >
-              Cars
-            </Link>
+              <NavLink to="/recommendations" onClick={() => setIsMenuOpen(false)} className="text-white hover:text-orange-500">
+                Recommendations
+              </NavLink>
 
-            <Link 
-              to="/ai" 
-              onClick={() => setOpen(false)} 
-              className={`block px-4 py-3 rounded-lg transition ${
-                isActive("/ai") 
-                  ? "text-orange-400 bg-orange-400/10 border-l-4 border-orange-400" 
-                  : "text-gray-300 hover:text-orange-300 hover:bg-orange-400/5"
-              }`}
-            >
-              AI Recommendations
-            </Link>
-
-            <Link 
-              to="/contact" 
-              onClick={() => setOpen(false)} 
-              className={`block px-4 py-3 rounded-lg transition ${
-                isActive("/contact") 
-                  ? "text-orange-400 bg-orange-400/10 border-l-4 border-orange-400" 
-                  : "text-gray-300 hover:text-orange-300 hover:bg-orange-400/5"
-              }`}
-            >
-              Contact
-            </Link>
-
-            <div className="pt-4 border-t border-orange-400/20 space-y-3">
-              <button 
-                className={`w-full flex justify-center py-3 rounded-xl transition ${
-                  isActive("/wishlist") 
-                    ? "bg-orange-400/20 text-orange-400 border border-orange-400/30" 
-                    : "bg-orange-400/10 text-orange-400 hover:bg-orange-400/20"
-                }`}
-                onClick={() => {
-                  navigate("/wishlist");
-                  setOpen(false);
-                }}
-              >
-                <Heart size={20} />
-              </button>
+              <NavLink to="/contact" onClick={() => setIsMenuOpen(false)} className="text-white hover:text-orange-500">
+                Contact
+              </NavLink>
 
               <Link
                 to="/login"
-                onClick={() => setOpen(false)}
-                className={`w-full flex items-center justify-center gap-2 py-3 rounded-xl transition ${
-                  isActive("/login") 
-                    ? "bg-orange-500 ring-2 ring-orange-400 ring-offset-1 ring-offset-[#0a1a35]" 
-                    : "bg-linear-to-r from-orange-400 to-orange-500"
-                } text-white`}
+                onClick={() => setIsMenuOpen(false)}
+                className="flex items-center gap-2 bg-orange-500 text-white px-4 py-2 rounded-lg font-semibold shadow-lg hover:bg-orange-600 transition-all duration-300 w-fit"
               >
-                <LogIn size={18} />
+                <FiLogIn size={18} />
                 Admin
               </Link>
             </div>
-
           </div>
-        </div>
-      </div>
-    </nav>
+        )}
+      </nav>
+    </header>
   );
 }

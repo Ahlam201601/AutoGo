@@ -21,16 +21,16 @@ export default function RecapPage() {
     try {
       await dispatch(createReservation({
         ...reservation,
-        status: "en attente",
+        status: "pending",
       })).unwrap();
       
-      toast.success("Réservation confirmée avec succès !", {
+      toast.success("Reservation confirmed successfully!", {
         duration: 3000,
         icon: "✅",
       });
       setTimeout(() => navigate("/"), 1500);
     } catch (error) {
-      toast.error("Erreur lors de la confirmation. Veuillez réessayer.", {
+      toast.error("Error during confirmation. Please try again.", {
         duration: 4000,
       });
       setIsConfirming(false);
@@ -52,11 +52,11 @@ export default function RecapPage() {
             />
             <h2 className="text-xl md:text-2xl font-bold text-gray-900">{reservation.carName}</h2>
             <p className="text-gray-500 text-sm md:text-base">
-              {reservation.carYear || "2024"} • {reservation.carColor || "Blanc Alpin"}
+              {reservation.carYear || "2024"} • {reservation.carColor || "Alpine White"}
             </p>
             <div className="pt-4 border-t border-gray-100">
-              <span className="text-2xl md:text-3xl font-bold text-orange-500">{reservation.totalPrice} €</span>
-              <span className="text-gray-500 text-sm ml-1">/jour</span>
+              <span className="text-2xl md:text-3xl font-bold text-orange-500">{reservation.totalPrice} DH</span>
+              <span className="text-gray-500 text-sm ml-1">/ day</span>
             </div>
           </div>
 
@@ -76,15 +76,15 @@ export default function RecapPage() {
                 className="inline-flex items-center gap-2 text-gray-600 hover:text-orange-500 text-sm font-medium mb-4 bg-transparent border-none cursor-pointer"
               >
                 <FiArrowLeft size={18} />
-                <Link to={`/reservation/${reservation.carId}`}>Modifier</Link>
+                <Link to={`/reservation/${reservation.carId}`}>Edit</Link>
               </button>
 
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">Récapitulatif</h2>
+              <h2 className="text-2xl font-bold text-gray-900 mb-6">Summary</h2>
 
               <div className="space-y-4">
-                {/* Nom */}
+                {/* Name */}
                 <div className="flex justify-between border-b border-gray-200 pb-2">
-                  <span className="text-gray-600">Nom</span>
+                  <span className="text-gray-600">Name</span>
                   <span className="text-gray-900 font-medium">{reservation.customerName}</span>
                 </div>
 
@@ -94,28 +94,28 @@ export default function RecapPage() {
                   <span className="text-gray-900 font-medium">{reservation.customerEmail}</span>
                 </div>
 
-                {/* Téléphone */}
+                {/* Phone */}
                 <div className="flex justify-between border-b border-gray-200 pb-2">
-                  <span className="text-gray-600">Téléphone</span>
+                  <span className="text-gray-600">Phone</span>
                   <span className="text-gray-900 font-medium">{reservation.customerPhone}</span>
                 </div>
 
                 {/* Dates */}
                 <div className="flex justify-between border-b border-gray-200 pb-2">
-                  <span className="text-gray-600">Période</span>
-                  <span className="text-gray-900 font-medium">{reservation.startDate} – {reservation.endDate}</span>
+                  <span className="text-gray-600">Period</span>
+                  <span className="text-gray-900 font-medium">{reservation.startDate} - {reservation.endDate}</span>
                 </div>
 
-                {/* Durée */}
+                {/* Duration */}
                 <div className="flex justify-between border-b border-gray-200 pb-2">
-                  <span className="text-gray-600">Durée</span>
-                  <span className="text-gray-900 font-medium">{reservation.duration} jour(s)</span>
+                  <span className="text-gray-600">Duration</span>
+                  <span className="text-gray-900 font-medium">{reservation.duration} day(s)</span>
                 </div>
 
                 {/* Total */}
                 <div className="flex justify-between items-center bg-orange-50 rounded-lg p-3 mt-4">
-                  <span className="text-gray-700 font-semibold">Total à payer</span>
-                  <span className="text-orange-500 font-bold text-lg">{reservation.totalPrice} €</span>
+                  <span className="text-gray-700 font-semibold">Total Price</span>
+                  <span className="text-orange-500 font-bold text-lg">{reservation.totalPrice} DH</span>
                 </div>
               </div>
             </div>
@@ -130,7 +130,7 @@ export default function RecapPage() {
                   : "bg-orange-500 text-white hover:bg-orange-600"
               }`}
             >
-              {isConfirming ? "Confirmation en cours..." : "Confirmer la réservation"}
+              {isConfirming ? "Confirming..." : "Confirm Reservation"}
             </button>
           </div>
         </div>

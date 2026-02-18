@@ -20,7 +20,7 @@ export default function CarCard({ car, isAdmin, onDeleteClick }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  // Vérifier si la voiture est déjà dans la wishlist
+  // Check if car is already in wishlist
   const wishlistItems = useSelector(state => state.wishlist?.items || []);
   const isInWishlist = wishlistItems.some(item => item.id === car.id);
 

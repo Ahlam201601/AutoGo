@@ -27,10 +27,10 @@ export const editCar = createAsyncThunk(
   async ({ id, carData }, { rejectWithValue }) => {
     try {
       const res = await axios.put(`${API_URL}/cars/${id}`, carData);
-      return res.data; // voiture modifiée
+      return res.data; // updated car
     } catch (error) {
       return rejectWithValue(
-        error.response?.data || "Erreur lors de la modification"
+        error.response?.data || "Error during modification"
       );
     }
   }
