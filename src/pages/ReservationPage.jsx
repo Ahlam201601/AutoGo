@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import { getCars } from "../redux/Slices/carsSlice";
-import { addReservation, clearDraftReservation } from "../redux/Slices/reservationSlice";
+import { clearDraftReservation } from "../redux/Slices/reservationSlice";
 import { FiArrowLeft, FiUser, FiMail, FiPhone, FiCalendar } from "react-icons/fi";
 
 export default function ReservationPage() {
@@ -27,11 +27,11 @@ export default function ReservationPage() {
   useEffect(() => {
     if (draftReservation) {
       setForm({
-        name: draftReservation.customerName || "",
-        email: draftReservation.customerEmail || "",
-        phone: draftReservation.customerPhone || "",
-        startDate: draftReservation.startDate || "",
-        endDate: draftReservation.endDate || "",
+        name: draftReservation.customerName,
+        email: draftReservation.customerEmail,
+        phone: draftReservation.customerPhone,
+        startDate: draftReservation.startDate,
+        endDate: draftReservation.endDate,
       });
     }
   }, [draftReservation]);
@@ -88,9 +88,8 @@ export default function ReservationPage() {
       createdAt: new Date().toISOString(),
     };
 
-    dispatch(addReservation(reservation));
-    dispatch(clearDraftReservation()); // Clear draft after successful reservation
-
+    // Clear draft and navigate to recap (reservation will be created in API when confirmed)
+    dispatch(clearDraftReservation());
     navigate("/recap", { state: { reservation } });
   };
 

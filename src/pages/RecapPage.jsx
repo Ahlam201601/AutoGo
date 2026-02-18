@@ -1,15 +1,41 @@
-import { useLocation, Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { setDraftReservation } from "../redux/Slices/reservationSlice";
+import { useLocation, Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { setDraftReservation, createReservation } from "../redux/Slices/reservationSlice";
 import Navbar from "../components/Navbar";
 import { FiArrowLeft } from "react-icons/fi";
+import toast from "react-hot-toast";
+import { useState } from "react";
 
 export default function RecapPage() {
   const location = useLocation();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { reservation } = location.state || {};
+  const { loading } = useSelector((state) => state.reservation);
+  const [isConfirming, setIsConfirming] = useState(false);
 
   if (!reservation) return <p className="text-center mt-20">No reservation found.</p>;
+
+  const handleConfirm = async () => {
+    setIsConfirming(true);
+    try {
+      await dispatch(createReservation({
+        ...reservation,
+        status: "en attente",
+      })).unwrap();
+      
+      toast.success("Réservation confirmée avec succès !", {
+        duration: 3000,
+        icon: "✅",
+      });
+      setTimeout(() => navigate("/"), 1500);
+    } catch (error) {
+      toast.error("Erreur lors de la confirmation. Veuillez réessayer.", {
+        duration: 4000,
+      });
+      setIsConfirming(false);
+    }
+  };
 
   return (
     <>
@@ -95,8 +121,16 @@ export default function RecapPage() {
             </div>
 
             {/* Bouton */}
-            <button className="mt-6 w-full py-3 bg-orange-500 text-white font-semibold rounded-lg hover:bg-orange-600 transition-all shadow-md">
-              Confirmer la réservation
+            <button 
+              onClick={handleConfirm}
+              disabled={isConfirming}
+              className={`mt-6 w-full py-3 font-semibold rounded-lg transition-all shadow-md ${
+                isConfirming 
+                  ? "bg-orange-300 cursor-not-allowed text-white"
+                  : "bg-orange-500 text-white hover:bg-orange-600"
+              }`}
+            >
+              {isConfirming ? "Confirmation en cours..." : "Confirmer la réservation"}
             </button>
           </div>
         </div>
