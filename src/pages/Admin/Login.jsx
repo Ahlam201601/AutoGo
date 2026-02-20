@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 import { Mail, Lock, LogIn, Car } from 'lucide-react';
 import { loginStart, loginSuccess, loginFailure } from '../../redux/Slices/authSlice';
 import toast from 'react-hot-toast';
-import Navbar from '../../components/Navbar';
+import Navbar from '../../Components/Navbar';
 
 export default function Login() {
   const [email, setEmail] = useState('');

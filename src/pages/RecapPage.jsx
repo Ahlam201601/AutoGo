@@ -1,7 +1,7 @@
 import { useLocation, Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { setDraftReservation, createReservation } from "../redux/Slices/reservationSlice";
-import Navbar from "../components/Navbar";
+import Navbar from "../Components/Navbar";
 import { FiArrowLeft } from "react-icons/fi";
 import toast from "react-hot-toast";
 import { useState } from "react";
@@ -51,9 +51,6 @@ export default function RecapPage() {
               className="w-full h-56 object-cover rounded-lg mb-6"
             />
             <h2 className="text-xl md:text-2xl font-bold text-gray-900">{reservation.carName}</h2>
-            <p className="text-gray-500 text-sm md:text-base">
-              {reservation.carYear || "2024"} • {reservation.carColor || "Alpine White"}
-            </p>
             <div className="pt-4 border-t border-gray-100">
               <span className="text-2xl md:text-3xl font-bold text-orange-500">{reservation.totalPrice} DH</span>
               <span className="text-gray-500 text-sm ml-1">/ day</span>

@@ -1,7 +1,7 @@
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import Navbar from "../components/Navbar";
+import Navbar from "../Components/Navbar";
 import { getCars } from "../redux/Slices/carsSlice";
 import { clearDraftReservation } from "../redux/Slices/reservationSlice";
 import { FiArrowLeft, FiUser, FiMail, FiPhone, FiCalendar } from "react-icons/fi";
@@ -111,7 +111,6 @@ export default function ReservationPage() {
         <div className="max-w-6xl mx-auto mb-8">
           <h1 className="text-3xl md:text-4xl font-bold text-gray-900">Reservation</h1>
         </div>
-
         <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-5 gap-6 lg:gap-8">
           <div className="lg:col-span-2">
             <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-5 md:p-6 h-fit sticky top-24">

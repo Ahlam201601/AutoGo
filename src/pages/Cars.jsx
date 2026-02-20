@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getCars } from "../redux/Slices/carsSlice";
-import CarCard from "../components/CarCard";
+import CarCard from "../Components/CarCard";
 import { FaFilter, FaSearch, FaCar } from "react-icons/fa";
-import Navbar from "../components/Navbar";
+import Navbar from "../Components/Navbar";
 
 export default function Cars() {
   const dispatch = useDispatch();

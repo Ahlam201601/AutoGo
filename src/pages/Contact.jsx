@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { FiUser, FiMail, FiMessageSquare, FiSend, FiMapPin, FiPhone, FiClock } from "react-icons/fi";
 import toast from "react-hot-toast";
-import Navbar from "../components/Navbar";
+import Navbar from "../Components/Navbar";
 import Footer from "../components/Footer";
 import axios from "axios";
 

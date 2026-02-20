@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import { getAIRecommendations as fetchAIFromGemini } from "../../api/route";
 
 const API_URL = import.meta.env.VITE_BASE_URL;
 
@@ -36,12 +37,31 @@ export const editCar = createAsyncThunk(
   }
 );
 
+/* ===================== GET AI RECOMMENDATIONS ===================== */
+export const getAIRecommendations = createAsyncThunk(
+  "cars/getAIRecommendations",
+  async (userPreferences, { getState, rejectWithValue }) => {
+    try {
+      const { cars } = getState().cars;
+      const recommendedIds = await fetchAIFromGemini(userPreferences, cars);
+
+      // Filter the original cars list by the IDs returned from AI
+      const recommendedCars = cars.filter(car => recommendedIds.includes(car.id));
+      return recommendedCars;
+    } catch (error) {
+      return rejectWithValue(error.message || "Failed to get AI recommendations");
+    }
+  }
+);
+
 /* ===================== SLICE ===================== */
 const carsSlice = createSlice({
   name: "cars",
   initialState: {
     cars: [],
+    recommendations: [],
     status: "idle",
+    recStatus: "idle",
     error: null,
   },
   reducers: {},
@@ -81,6 +101,19 @@ const carsSlice = createSlice({
         if (index !== -1) {
           state.cars[index] = action.payload;
         }
+      })
+
+      /* -------- AI RECOMMENDATIONS -------- */
+      .addCase(getAIRecommendations.pending, (state) => {
+        state.recStatus = "loading";
+      })
+      .addCase(getAIRecommendations.fulfilled, (state, action) => {
+        state.recStatus = "succeeded";
+        state.recommendations = action.payload;
+      })
+      .addCase(getAIRecommendations.rejected, (state, action) => {
+        state.recStatus = "failed";
+        state.error = action.payload;
       });
   },
 });

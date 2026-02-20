@@ -1,7 +1,7 @@
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useState } from "react";
-import Navbar from "../components/Navbar";
+import Navbar from "../Components/Navbar";
 import { Check } from "lucide-react";
 
 import { addToWishlist, removeFromWishlist } from "../redux/Slices/wishlistSlice";
