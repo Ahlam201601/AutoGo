@@ -4,6 +4,7 @@ import { getCars } from "../redux/Slices/carsSlice";
 import CarCard from "../Components/CarCard";
 import { FaFilter, FaSearch, FaCar } from "react-icons/fa";
 import Navbar from "../Components/Navbar";
+import Footer from "../Components/Footer";
 import { motion, AnimatePresence } from "framer-motion";
 
 export default function Cars() {
@@ -90,7 +91,7 @@ export default function Cars() {
                       <button
                         key={cat}
                         onClick={() => setSelectedCategory(cat)}
-                        className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+                        className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors cursor-pointer ${
                           selectedCategory === cat
                             ? "bg-orange-500 text-white hover:bg-orange-600"
                             : "bg-gray-200 text-gray-700 hover:bg-gray-300"
@@ -113,7 +114,7 @@ export default function Cars() {
                       <button
                         key={tr}
                         onClick={() => setSelectedTransmission(tr)}
-                        className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+                        className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors cursor-pointer ${
                           selectedTransmission === tr
                             ? "bg-orange-500 text-white hover:bg-orange-600"
                             : "bg-gray-200 text-gray-700 hover:bg-gray-300"
@@ -138,7 +139,7 @@ export default function Cars() {
                           setSelectedCategory("All");
                           setSelectedTransmission("All");
                         }}
-                        className="text-sm px-3 py-1.5 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition-colors font-medium"
+                        className="text-sm px-3 py-1.5 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition-colors font-medium cursor-pointer"
                       >
                         Reset
                       </button>
@@ -225,7 +226,7 @@ export default function Cars() {
                           setSelectedCategory("All");
                           setSelectedTransmission("All");
                         }}
-                        className="px-6 py-3 bg-orange-500 text-white rounded-lg hover:bg-orange-600 transition-colors font-medium"
+                        className="px-6 py-3 bg-orange-500 text-white rounded-lg hover:bg-orange-600 transition-colors font-medium cursor-pointer"
                       >
                         Reset all filters
                       </button>
@@ -237,6 +238,7 @@ export default function Cars() {
           </div>
         </div>
       </div>
+      <Footer />
     </>
   );
 }

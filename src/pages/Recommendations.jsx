@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAIRecommendations, getCars } from "../redux/Slices/carsSlice";
 import CarCard from "../Components/CarCard";
 import Navbar from "../Components/Navbar";
+import Footer from "../Components/Footer";
 import { FiCpu, FiTarget, FiDollarSign, FiUsers, FiDroplet, FiCheckCircle } from "react-icons/fi";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -130,7 +131,7 @@ export default function Recommendations() {
                   <button
                     type="submit"
                     disabled={recStatus === "loading"}
-                    className="w-full py-5 bg-gradient-to-r from-gray-900 to-gray-800 text-white rounded-2xl font-bold text-lg hover:from-orange-600 hover:to-orange-500 transition-all shadow-lg active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-3 mt-8"
+                    className="w-full py-5 bg-gradient-to-r from-gray-900 to-gray-800 text-white rounded-2xl font-bold text-lg hover:from-orange-600 hover:to-orange-500 transition-all shadow-lg active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-3 mt-8 cursor-pointer"
                   >
                     {recStatus === "loading" ? (
                       <div className="w-6 h-6 border-3 border-white/30 border-t-white rounded-full animate-spin" />
@@ -193,7 +194,7 @@ export default function Recommendations() {
                     <p className="text-red-600 mt-2">{error || "AI service is temporarily unavailable."}</p>
                     <button 
                       onClick={handleSubmit}
-                      className="mt-6 px-8 py-3 bg-red-600 text-white rounded-xl font-bold hover:bg-red-700 transition-all"
+                      className="mt-6 px-8 py-3 bg-red-600 text-white rounded-xl font-bold hover:bg-red-700 transition-all cursor-pointer"
                     >
                       Try Again
                     </button>
@@ -252,6 +253,7 @@ export default function Recommendations() {
           </div>
         </div>
       </div>
+      <Footer />
     </>
   );
 }

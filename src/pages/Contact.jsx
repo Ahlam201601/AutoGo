@@ -2,7 +2,7 @@ import { useState } from "react";
 import { FiUser, FiMail, FiMessageSquare, FiSend, FiMapPin, FiPhone, FiClock } from "react-icons/fi";
 import toast from "react-hot-toast";
 import Navbar from "../Components/Navbar";
-import Footer from "../components/Footer";
+import Footer from "../Components/Footer";
 import axios from "axios";
 
 export default function Contact() {
@@ -200,7 +200,7 @@ export default function Contact() {
                   </div>
                   <button
                     disabled={loading}
-                    className="px-8 py-4 bg-gradient-to-r from-orange-400 to-orange-500 hover:from-orange-500 hover:to-orange-600 text-white rounded-xl font-semibold flex items-center gap-3 shadow-md hover:shadow-lg transition-all duration-300 disabled:opacity-70"
+                    className="px-8 py-4 bg-gradient-to-r from-orange-400 to-orange-500 hover:from-orange-500 hover:to-orange-600 text-white rounded-xl font-semibold flex items-center gap-3 shadow-md hover:shadow-lg transition-all duration-300 disabled:opacity-70 cursor-pointer"
                   >
                     {loading ? (
                       <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />

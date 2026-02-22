@@ -61,7 +61,7 @@ export default function CarsList() {
           <p className="text-sm mt-1">{error}</p>
           <button
             onClick={() => dispatch(getCars())}
-            className="mt-3 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors text-sm"
+            className="mt-3 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors text-sm cursor-pointer"
           >
             Retry
           </button>
@@ -88,7 +88,7 @@ export default function CarsList() {
             {search && (
               <button
                 onClick={() => setSearch("")}
-                className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 cursor-pointer"
               >
                 <FiX size={20} />
               </button>
@@ -115,7 +115,7 @@ export default function CarsList() {
             {search && (
               <button
                 onClick={() => setSearch("")}
-                className="px-6 py-3 bg-orange-500 text-white rounded-lg hover:bg-orange-600 transition-colors font-medium"
+                className="px-6 py-3 bg-orange-500 text-white rounded-lg hover:bg-orange-600 transition-colors font-medium cursor-pointer"
               >
                 Clear search
               </button>
@@ -159,7 +159,7 @@ export default function CarsList() {
             <div className="flex gap-4 mt-3">
               <button
                 onClick={() => setShowDelete(false)}
-                className="flex-1 border-2 border-gray-300 rounded-lg py-3 hover:bg-gray-50 transition-colors font-medium"
+                className="flex-1 border-2 border-gray-300 rounded-lg py-3 hover:bg-gray-50 transition-colors font-medium cursor-pointer"
                 disabled={loadingDelete}
               >
                 Cancel
@@ -167,9 +167,9 @@ export default function CarsList() {
 
               <button
                 onClick={handleDelete}
-                className={`flex-1 rounded-lg py-3 text-white font-medium transition-colors ${
+                className={`flex-1 rounded-lg py-3 text-white font-medium transition-colors cursor-pointer ${
                   loadingDelete
-                    ? "bg-red-300 cursor-not-allowed"
+                    ? "bg-red-300 !cursor-not-allowed"
                     : "bg-red-600 hover:bg-red-700"
                 }`}
                 disabled={loadingDelete}

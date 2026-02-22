@@ -61,7 +61,7 @@ export default function AdminReservations() {
             <p className="text-red-700 mb-4">{error}</p>
             <button
               onClick={() => dispatch(fetchReservations())}
-              className="inline-flex items-center gap-2 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors"
+              className="inline-flex items-center gap-2 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors cursor-pointer"
             >
               Retry
             </button>
@@ -141,7 +141,7 @@ export default function AdminReservations() {
                         {(reservation.status === "pending" || reservation.status === "cancelled") && (
                           <button
                             onClick={() => handleStatusUpdate(reservation, "confirmed")}
-                            className="px-3 py-1 bg-green-600 text-white rounded text-xs hover:bg-green-700 transition"
+                            className="px-3 py-1 bg-green-600 text-white rounded text-xs hover:bg-green-700 transition cursor-pointer"
                           >
                             Confirm
                           </button>
@@ -149,7 +149,7 @@ export default function AdminReservations() {
                         {(reservation.status === "pending" || reservation.status === "confirmed") && (
                           <button
                             onClick={() => handleStatusUpdate(reservation, "cancelled")}
-                            className="px-3 py-1 bg-red-600 text-white rounded text-xs hover:bg-red-700 transition"
+                            className="px-3 py-1 bg-red-600 text-white rounded text-xs hover:bg-red-700 transition cursor-pointer"
                           >
                             Cancel
                           </button>

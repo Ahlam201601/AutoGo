@@ -51,7 +51,7 @@ export default function CarDetailsPage() {
           <div className="mb-6">
             <Link
               to="/cars"
-              className="inline-flex items-center gap-2 text-gray-600 hover:text-orange-500 transition-colors"
+              className="inline-flex items-center gap-2 text-gray-600 hover:text-orange-500 transition-colors cursor-pointer"
             >
               <FiArrowLeft size={20} />
               <span className="text-base font-medium">Back to Cars</span>
@@ -72,7 +72,7 @@ export default function CarDetailsPage() {
               {/* FAVORITE */}
               <button
                 onClick={handleWishlistClick}
-                className="absolute top-4 right-4 bg-white p-3 rounded-full shadow-lg hover:shadow-xl transition-all"
+                className="absolute top-4 right-4 bg-white p-3 rounded-full shadow-lg hover:shadow-xl transition-all cursor-pointer"
               >
                 <FiHeart
                   size={24}
@@ -198,12 +198,12 @@ export default function CarDetailsPage() {
               <div className="flex flex-col sm:flex-row gap-4 pt-6">
                 <Link
                   to={`/reservation/${car.id}`}
-                  className="flex-1 bg-orange-500 text-white py-4 px-6 rounded-xl font-bold text-center hover:bg-orange-600 transition-all shadow-lg hover:shadow-xl"
+                  className="flex-1 bg-orange-500 text-white py-4 px-6 rounded-xl font-bold text-center hover:bg-orange-600 transition-all shadow-lg hover:shadow-xl cursor-pointer"
                 >
                   Reserve this car
                 </Link>
 
-                <button className="flex-1 border-2 border-orange-500 text-orange-500 py-4 px-6 rounded-xl font-bold hover:bg-orange-50 transition-all"
+                <button className="flex-1 border-2 border-orange-500 text-orange-500 py-4 px-6 rounded-xl font-bold hover:bg-orange-50 transition-all cursor-pointer"
                   onClick={()=>navigate("/contact")}>
                   Contact us
                 </button>

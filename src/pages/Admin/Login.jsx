@@ -12,7 +12,6 @@ const Login = () => {
         password: '',
     });
     const [errors, setErrors] = useState({});
-    const [isSubmitting, setIsSubmitting] = useState(false);
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { isAuthenticated } = useSelector((state) => state.auth);
@@ -48,7 +47,7 @@ const Login = () => {
         }
     };
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
         const validationErrors = validate();
         if (Object.keys(validationErrors).length > 0) {
@@ -56,22 +55,16 @@ const Login = () => {
             return;
         }
 
-        try {
-            setIsSubmitting(true);
-            
-            // Simulating a login delay
-            setTimeout(() => {
-                const userData = { id: 1, email: formData.email, name: 'Admin', role: 'admin' };
-                
-                dispatch(login(userData));
-                toast.success('Successfully logged in!');
-                navigate('/admin');
-                setIsSubmitting(false);
-            }, 1000);
+        const ADMIN_EMAIL = import.meta.env.VITE_ADMIN_EMAIL;
+        const ADMIN_PASSWORD = import.meta.env.VITE_ADMIN_PASSWORD;
 
-        } catch (err) {
-            toast.error('Login failed');
-            setIsSubmitting(false);
+        if (formData.email === ADMIN_EMAIL && formData.password === ADMIN_PASSWORD) {
+            const userData = { id: 1, email: formData.email, name: 'Admin', role: 'admin' };
+            dispatch(login(userData));
+            toast.success('Successfully logged in!');
+            navigate('/admin');
+        } else {
+            toast.error('Invalid email or password');
         }
     };
 
@@ -154,28 +147,19 @@ const Login = () => {
                             )}
                         </div>
 
-                        <motion.button
-                            whileHover={{ scale: 1.02 }}
-                            whileTap={{ scale: 0.98 }}
+                        <button
                             type="submit"
-                            disabled={isSubmitting}
-                            className={`w-full bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-4 rounded-xl shadow-lg transition-colors flex items-center justify-center gap-2 ${isSubmitting ? 'opacity-70 cursor-not-allowed' : ''}`}
+                            className="w-full bg-orange-500 hover:bg-orange-600 text-white font-bold py-4 rounded-xl shadow-lg transition-all flex items-center justify-center gap-2 cursor-pointer active:scale-95"
                         >
-                            {isSubmitting ? (
-                                <span className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
-                            ) : (
-                                <>
-                                    <LogIn size={20} />
-                                    Sign In
-                                </>
-                            )}
-                        </motion.button>
+                            <LogIn size={20} />
+                            Sign In
+                        </button>
                     </form>
 
                     <div className="mt-8 text-center">
                         <button 
                             onClick={() => navigate('/')}
-                            className="text-gray-500 hover:text-orange-500 text-sm font-medium transition-colors"
+                            className="text-gray-500 hover:text-orange-500 text-sm font-medium transition-colors cursor-pointer"
                         >
                             Back to Home
                         </button>

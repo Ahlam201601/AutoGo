@@ -15,7 +15,7 @@ const AdminSidebar = () => {
   };
 
   const linkClass = ({ isActive }) =>
-    `w-full text-left px-4 py-3 rounded-lg transition-colors flex items-center gap-3 ${
+    `w-full text-left px-4 py-3 rounded-lg transition-colors flex items-center gap-3 cursor-pointer ${
       isActive ? "bg-orange-500 text-white" : "text-gray-300 hover:bg-[#2a3442]"
     }`;
 
@@ -70,7 +70,7 @@ const AdminSidebar = () => {
       <div className="p-4 border-t border-gray-700">
         <button 
           onClick={handleLogout}
-          className="w-full text-left px-4 py-3 text-gray-300 hover:bg-[#2a3442] rounded-lg transition-colors flex items-center gap-3"
+          className="w-full text-left px-4 py-3 text-gray-300 hover:bg-[#2a3442] rounded-lg transition-colors flex items-center gap-3 cursor-pointer"
         >
           <LogOut className="w-5 h-5" />
           Logout

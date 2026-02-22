@@ -2,10 +2,11 @@ import React, { useEffect } from 'react';
 import Navbar from '../Components/Navbar';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { FiArrowRight, FiMail, FiStar, FiShield, FiGlobe, FiClock } from 'react-icons/fi';
+import { FiArrowRight, FiMail, FiStar, FiShield, FiGlobe, FiClock, FiUser } from 'react-icons/fi';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCars } from '../redux/Slices/carsSlice';
 import CarCard from '../Components/CarCard';
+import Footer from '../Components/Footer';
 
 export default function Home() {
   const dispatch = useDispatch();
@@ -73,13 +74,6 @@ export default function Home() {
             </motion.div>
           </div>
         </motion.div>
-
-        {/* SCROLL INDICATOR */}
-        <div className="absolute bottom-10 left-0 right-0 z-10 text-center">
-           <p className="text-[10px] text-white/40 font-bold uppercase tracking-[0.5em] animate-pulse">
-             Precision • Power • Prestige
-           </p>
-        </div>
       </div>
 
       {/* SIMPLE LUXE SELECTION SECTION */}
@@ -182,6 +176,103 @@ export default function Home() {
           </div>
         </div>
       </section>
+      {/* CUSTOMER EXPERIENCES SECTION */}
+      <section className="bg-white py-24 px-6 md:px-8">
+        <div className="max-w-7xl mx-auto">
+          {/* Section Header */}
+          <div className="text-center mb-20">
+            <p className="text-orange-500 font-black uppercase tracking-[0.4em] text-[10px] mb-4">Testimonials</p>
+            <h2 className="text-3xl md:text-5xl font-bold text-gray-900 tracking-tight">
+              Customer <span className="text-orange-500">Experiences</span>
+            </h2>
+            <div className="h-1 w-20 bg-orange-500 mx-auto rounded-full mt-6" />
+          </div>
+
+          {/* TESTIMONIALS GRID */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+            
+            {/* Review 1 */}
+            <motion.div 
+              whileHover={{ y: -5 }}
+              className="bg-gray-50 p-10 rounded-[2.5rem] border border-gray-100 relative overflow-hidden group"
+            >
+              <div className="flex gap-1 mb-6 text-orange-500">
+                <FiStar className="fill-orange-500" size={14} />
+                <FiStar className="fill-orange-500" size={14} />
+                <FiStar className="fill-orange-500" size={14} />
+                <FiStar className="fill-orange-500" size={14} />
+                <FiStar className="fill-orange-500" size={14} />
+              </div>
+              <p className="text-gray-600 italic leading-relaxed mb-8 relative z-10">
+                "The fleet quality is simply unmatched. I rented a Porsche for my weekend trip and the entire process was seamless and incredibly professional."
+              </p>
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center text-orange-500">
+                  <FiUser size={24} />
+                </div>
+                <div>
+                  <h4 className="font-bold text-gray-900 text-sm uppercase tracking-widest">James Wilson</h4>
+                  <p className="text-[10px] text-gray-400 font-bold uppercase tracking-widest">CEO, TechFlow</p>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Review 2 */}
+            <motion.div 
+              whileHover={{ y: -5 }}
+              className="bg-gray-50 p-10 rounded-[2.5rem] border border-gray-100 relative overflow-hidden group"
+            >
+              <div className="flex gap-1 mb-6 text-orange-500">
+                <FiStar className="fill-orange-500" size={14} />
+                <FiStar className="fill-orange-500" size={14} />
+                <FiStar className="fill-orange-500" size={14} />
+                <FiStar className="fill-orange-500" size={14} />
+                <FiStar className="fill-orange-500" size={14} />
+              </div>
+              <p className="text-gray-600 italic leading-relaxed mb-8 relative z-10">
+                "VIP delivery to my hotel was punctual and the car was in showroom condition. This is exactly how luxury car rental should be handled."
+              </p>
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center text-orange-500">
+                  <FiUser size={24} />
+                </div>
+                <div>
+                  <h4 className="font-bold text-gray-900 text-sm uppercase tracking-widest">Sarah Jenkins</h4>
+                  <p className="text-[10px] text-gray-400 font-bold uppercase tracking-widest">Global Traveler</p>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Review 3 */}
+            <motion.div 
+              whileHover={{ y: -5 }}
+              className="bg-gray-50 p-10 rounded-[2.5rem] border border-gray-100 relative overflow-hidden group"
+            >
+              <div className="flex gap-1 mb-6 text-orange-500">
+                <FiStar className="fill-orange-500" size={14} />
+                <FiStar className="fill-orange-500" size={14} />
+                <FiStar className="fill-orange-500" size={14} />
+                <FiStar className="fill-orange-500" size={14} />
+                <FiStar className="fill-orange-500" size={14} />
+              </div>
+              <p className="text-gray-600 italic leading-relaxed mb-8 relative z-10">
+                "Outstanding customer service. The team went above and beyond to accommodate my last-minute request. AutoGo is my only choice now."
+              </p>
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center text-orange-500">
+                  <FiUser size={24} />
+                </div>
+                <div>
+                  <h4 className="font-bold text-gray-900 text-sm uppercase tracking-widest">Michael Chen</h4>
+                  <p className="text-[10px] text-gray-400 font-bold uppercase tracking-widest">Founder, LuxuryStay</p>
+                </div>
+              </div>
+            </motion.div>
+
+          </div>
+        </div>
+      </section>
+      <Footer />
     </>
   );
 }

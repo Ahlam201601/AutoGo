@@ -81,7 +81,7 @@ export default function CarCard({ car, isAdmin, onDeleteClick }) {
           {/* HEART WISHLIST BUTTON */}
           <button
             onClick={handleWishlistClick}
-            className={`absolute top-3 right-3 p-2 rounded-full shadow-md transition-colors ${
+            className={`absolute top-3 right-3 p-2 rounded-full shadow-md transition-colors cursor-pointer ${
               isInWishlist
                 ? "bg-white text-red-500"
                 : "bg-white text-gray-600 hover:bg-red-500 hover:text-white"
@@ -147,7 +147,7 @@ export default function CarCard({ car, isAdmin, onDeleteClick }) {
               <>
                 <button
                   onClick={() => setEditCar(true)}
-                  className="flex-3 flex items-center justify-center gap-2 py-2 px-3 bg-white border border-gray-200 text-[#1A202C] text-sm font-semibold rounded-xl hover:bg-gray-50 transition-colors"
+                  className="flex-3 flex items-center justify-center gap-2 py-2 px-3 bg-white border border-gray-200 text-[#1A202C] text-sm font-semibold rounded-xl hover:bg-gray-50 transition-colors cursor-pointer"
                 >
                   <FiEdit size={16} />
                   Edit
@@ -155,7 +155,7 @@ export default function CarCard({ car, isAdmin, onDeleteClick }) {
 
                 <button
                   onClick={() => onDeleteClick(currentCar.id)}
-                  className="flex-1 flex items-center justify-center p-2 border border-red-500 text-red-500 rounded-xl hover:bg-red-50 transition-colors"
+                  className="flex-1 flex items-center justify-center p-2 border border-red-500 text-red-500 rounded-xl hover:bg-red-50 transition-colors cursor-pointer"
                 >
                   <FiTrash2 size={18} />
                 </button>
@@ -163,7 +163,7 @@ export default function CarCard({ car, isAdmin, onDeleteClick }) {
             ) : (
               <button
                 onClick={() => navigate(`/cars/${car.id}`)}
-                className="w-full py-2.5 bg-[#F97316] text-white text-sm font-bold rounded-xl hover:bg-orange-600 transition-all shadow-md shadow-orange-100 active:scale-95"
+                className="w-full py-2.5 bg-[#F97316] text-white text-sm font-bold rounded-xl hover:bg-orange-600 transition-all shadow-md shadow-orange-100 active:scale-95 cursor-pointer"
               >
                 Rent Now
               </button>

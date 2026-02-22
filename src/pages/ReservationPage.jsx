@@ -101,7 +101,7 @@ export default function ReservationPage() {
         <div className="max-w-6xl mx-auto mb-6">
           <Link
             to={`/cars/${car.id}`}
-            className="inline-flex items-center gap-2 text-gray-600 hover:text-orange-500 text-sm font-medium transition-colors"
+            className="inline-flex items-center gap-2 text-gray-600 hover:text-orange-500 text-sm font-medium transition-colors cursor-pointer"
           >
             <FiArrowLeft size={18} />
             Back to Car Details

@@ -12,6 +12,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { removeFromWishlist, clearWishlist } from "../redux/Slices/wishlistSlice";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../Components/Navbar";
+import Footer from "../Components/Footer";
 
 export default function Wishlist() {
   const dispatch = useDispatch();
@@ -188,6 +189,7 @@ export default function Wishlist() {
 
         </div>
       </div>
+      <Footer />
     </>
   );
 }

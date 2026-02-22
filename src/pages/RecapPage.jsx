@@ -121,9 +121,9 @@ export default function RecapPage() {
             <button 
               onClick={handleConfirm}
               disabled={isConfirming}
-              className={`mt-6 w-full py-3 font-semibold rounded-lg transition-all shadow-md ${
+              className={`mt-6 w-full py-3 font-semibold rounded-lg transition-all shadow-md cursor-pointer ${
                 isConfirming 
-                  ? "bg-orange-300 cursor-not-allowed text-white"
+                  ? "bg-orange-300 !cursor-not-allowed text-white"
                   : "bg-orange-500 text-white hover:bg-orange-600"
               }`}
             >
