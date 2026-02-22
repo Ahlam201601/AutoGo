@@ -13,6 +13,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { addToWishlist, removeFromWishlist } from "../redux/Slices/wishlistSlice";
 import EditCar from "../pages/Admin/EditCar";
+import { toast } from "react-hot-toast";
 
 export default function CarCard({ car, isAdmin, onDeleteClick }) {
   const [editCar, setEditCar] = useState(false);
@@ -33,8 +34,10 @@ export default function CarCard({ car, isAdmin, onDeleteClick }) {
     e.stopPropagation();
     if (isInWishlist) {
       dispatch(removeFromWishlist(car.id));
+      toast.success("Removed from wishlist");
     } else {
       dispatch(addToWishlist(car));
+      toast.success("Added to wishlist");
     }
   };
 
@@ -61,9 +64,9 @@ export default function CarCard({ car, isAdmin, onDeleteClick }) {
 
   return (
     <>
-      <div className="bg-white rounded-3xl overflow-hidden shadow-sm border border-gray-100 transition-all duration-300 hover:shadow-md group max-w-sm">
+      <div className="flex flex-col h-full bg-white rounded-3xl overflow-hidden shadow-sm border border-gray-100 transition-all duration-300 hover:shadow-md group">
         {/* IMAGE */}
-        <div className="relative h-52 overflow-hidden">
+        <div className="relative h-52 shrink-0 overflow-hidden">
           <img
             src={car.image || "/car-placeholder.jpg"}
             alt={car.model}
@@ -80,27 +83,27 @@ export default function CarCard({ car, isAdmin, onDeleteClick }) {
             onClick={handleWishlistClick}
             className={`absolute top-3 right-3 p-2 rounded-full shadow-md transition-colors ${
               isInWishlist
-                ? "bg-white text-yellow-500"
-                : "bg-white text-gray-600 hover:bg-yellow-500 hover:text-white"
+                ? "bg-white text-red-500"
+                : "bg-white text-gray-600 hover:bg-red-500 hover:text-white"
             }`}
           >
             <FiHeart
               size={18}
-              fill={isInWishlist ? "yellow" : "none"}
+              className={isInWishlist ? "fill-red-500" : ""}
               stroke="currentColor"
             />
           </button>
         </div>
 
         {/* CONTENT */}
-        <div className="p-5">
+        <div className="p-5 flex flex-col flex-1">
           {/* TITLE & PRICE */}
           <div className="flex justify-between items-start mb-1">
             <h3 className="text-[#1A202C] font-bold text-lg leading-tight">
               {car.brand}{" "}
               <span className="text-gray-500 font-medium">{car.model}</span>
             </h3>
-            <div className="flex flex-col items-end">
+            <div className="flex flex-col items-end shrink-0">
               <span className="text-[#F97316] font-bold text-lg">
                 {car.pricePerDay} DH
               </span>
@@ -138,8 +141,8 @@ export default function CarCard({ car, isAdmin, onDeleteClick }) {
             </div>
           </div>
 
-          {/* ACTIONS */}
-          <div className="flex gap-2">
+          {/* ACTIONS - Pushed to bottom */}
+          <div className="mt-auto pt-4 flex gap-2">
             {isAdmin ? (
               <>
                 <button
@@ -160,7 +163,7 @@ export default function CarCard({ car, isAdmin, onDeleteClick }) {
             ) : (
               <button
                 onClick={() => navigate(`/cars/${car.id}`)}
-                className="w-full py-2.5 mt-4 bg-[#F97316] text-white text-sm font-bold rounded-xl hover:bg-orange-600 transition-all shadow-md shadow-orange-100 active:scale-95"
+                className="w-full py-2.5 bg-[#F97316] text-white text-sm font-bold rounded-xl hover:bg-orange-600 transition-all shadow-md shadow-orange-100 active:scale-95"
               >
                 Rent Now
               </button>

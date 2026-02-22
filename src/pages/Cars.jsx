@@ -4,6 +4,7 @@ import { getCars } from "../redux/Slices/carsSlice";
 import CarCard from "../Components/CarCard";
 import { FaFilter, FaSearch, FaCar } from "react-icons/fa";
 import Navbar from "../Components/Navbar";
+import { motion, AnimatePresence } from "framer-motion";
 
 export default function Cars() {
   const dispatch = useDispatch();
@@ -51,7 +52,12 @@ export default function Cars() {
           <div className="flex flex-col lg:flex-row gap-8">
             
             {/* Sidebar des filtres */}
-            <div className="lg:w-1/4">
+            <motion.div 
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.5 }}
+              className="lg:w-1/4"
+            >
               <div className="bg-gray-50 border border-gray-200 rounded-2xl p-6 shadow-sm sticky top-24">
                 <h2 className="text-xl font-bold text-gray-900 mb-6 flex items-center gap-2">
                   <FaFilter className="text-orange-500" />
@@ -140,7 +146,7 @@ export default function Cars() {
                   </div>
                 </div>
               </div>
-            </div>
+            </motion.div>
 
             {/* Contenu principal - Grille de voitures */}
             <div className="lg:w-3/4">
@@ -154,19 +160,46 @@ export default function Cars() {
               {/* CARS GRID */}
               {status === "succeeded" && filteredCars.length > 0 && (
                 <>
-                  <div className="mb-6">
+                  <motion.div 
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5 }}
+                    className="mb-6"
+                  >
                     <h2 className="text-2xl font-bold text-gray-900">
                       Available Cars ({filteredCars.length})
                     </h2>
                     <p className="text-gray-600 mt-1">
                       Browse our premium collection of vehicles
                     </p>
-                  </div>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                  </motion.div>
+                  
+                  <motion.div 
+                    variants={{
+                      hidden: { opacity: 0 },
+                      show: {
+                        opacity: 1,
+                        transition: {
+                          staggerChildren: 0.1
+                        }
+                      }
+                    }}
+                    initial="hidden"
+                    animate="show"
+                    className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
+                  >
                     {filteredCars.map((car) => (
-                      <CarCard key={car.id} car={car} isAdmin={false} />
+                      <motion.div
+                        key={car.id}
+                        variants={{
+                          hidden: { opacity: 0, y: 20 },
+                          show: { opacity: 1, y: 0 }
+                        }}
+                      >
+                        <CarCard car={car} isAdmin={false} />
+                      </motion.div>
                     ))}
-                  </div>
+                  </motion.div>
                 </>
               )}
 

@@ -1,6 +1,7 @@
 import { useParams, Link, useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { useState, useEffect } from "react";
+import { toast } from "react-hot-toast";
 import Navbar from "../Components/Navbar";
 import { Check } from "lucide-react";
 
@@ -18,11 +19,26 @@ import {
 export default function CarDetailsPage() {
   const { id } = useParams();
   const { cars } = useSelector((state) => state.cars);
-  const [isFavorite, setIsFavorite] = useState(false);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  // Check if car is already in wishlist
+  const wishlistItems = useSelector((state) => state.wishlist?.items || []);
   const car = cars.find((c) => c.id === id);
+  const isInWishlist = wishlistItems.some((item) => item.id === car?.id);
+
   if (!car) return null;
+
+  const handleWishlistClick = (e) => {
+    e.stopPropagation();
+    if (isInWishlist) {
+      dispatch(removeFromWishlist(car.id));
+      toast.success("Removed from wishlist");
+    } else {
+      dispatch(addToWishlist(car));
+      toast.success("Added to wishlist");
+    }
+  };
 
 
   return (
@@ -55,13 +71,13 @@ export default function CarDetailsPage() {
 
               {/* FAVORITE */}
               <button
-                onClick={() => setIsFavorite(!isFavorite)}
+                onClick={handleWishlistClick}
                 className="absolute top-4 right-4 bg-white p-3 rounded-full shadow-lg hover:shadow-xl transition-all"
               >
                 <FiHeart
                   size={24}
                   className={
-                    isFavorite
+                    isInWishlist
                       ? "fill-red-500 text-red-500"
                       : "text-gray-600"
                   }

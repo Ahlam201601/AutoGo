@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getCars, deleteCar } from "../../redux/Slices/carsSlice";
-import CarCard from "../../components/CarCard";
+import CarCard from "../../Components/CarCard";
 import { FiTrash, FiSearch, FiX } from "react-icons/fi";
 
 export default function CarsList() {
