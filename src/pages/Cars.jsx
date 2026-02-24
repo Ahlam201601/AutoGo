@@ -35,7 +35,8 @@ export default function Cars() {
       car.transmission === selectedTransmission;
 
     const matchSearch =
-      car.name?.toLowerCase().includes(searchQuery.toLowerCase());
+      car.brand?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      car.model?.toLowerCase().includes(searchQuery.toLowerCase());
 
     return matchCategory && matchTransmission && matchSearch;
   });

@@ -23,6 +23,7 @@ export default function AddCar() {
     equipments: "",
     description: "",
     image: "",
+    consumption: "",
   });
 
   const [errors, setErrors] = useState({});
@@ -75,6 +76,7 @@ export default function AddCar() {
     if (!form.equipments) temp.equipments = "Equipments are required";
     if (!form.description) temp.description = "Description is required";
     if (!form.image) temp.image = "Image is required";
+    if (!form.consumption) temp.consumption = "Consumption is required";
     setErrors(temp);
     return Object.keys(temp).length === 0;
   };
@@ -113,6 +115,7 @@ export default function AddCar() {
         equipments: "",
         description: "",
         image: "",
+        consumption: "",
       });
       setErrors({});
     } else {
@@ -130,234 +133,285 @@ export default function AddCar() {
 
 
   return (
-    <div className="max-w-5xl mx-auto bg-white p-8 rounded-2xl shadow-xl border border-orange-500/30">
-      <div className="flex justify-between items-center mb-6">
-        <h1 className="text-2xl font-bold text-gray-800">Add New Car</h1>
-      </div>
-
-      <form onSubmit={(e) => e.preventDefault()} className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        {/* BRAND */}
-        <div>
-          <label className="text-sm text-gray-600">Brand *</label>
-          <input
-            type="text"
-            name="brand"
-            value={form.brand}
-            onChange={handleChange}
-            placeholder="Enter brand"
-            className={`w-full border p-3 rounded-xl mt-1 focus:border-orange-500 outline-none ${
-              errors.brand ? "border-red-500" : "border-gray-300"
-            }`}
-          />
-          {errors.brand && <p className="text-red-500 text-sm mt-1">{errors.brand}</p>}
+    <div className="max-w-5xl mx-auto">
+      <div className="bg-white p-6 md:p-10 rounded-2xl shadow-xl border border-gray-100">
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">
+          <div>
+            <h1 className="text-2xl md:text-3xl font-bold text-gray-900">Add New Vehicle</h1>
+            <p className="text-gray-500 mt-1">Fill in the details to list a new car in the fleet.</p>
+          </div>
         </div>
 
-        {/* MODEL */}
-        <div>
-          <label className="text-sm text-gray-600">Model *</label>
-          <input
-            type="text"
-            name="model"
-            value={form.model}
-            onChange={handleChange}
-            placeholder="Enter model"
-            className={`w-full border p-3 rounded-xl mt-1 focus:border-orange-500 outline-none ${
-              errors.model ? "border-red-500" : "border-gray-300"
-            }`}
-          />
-          {errors.model && <p className="text-red-500 text-sm mt-1">{errors.model}</p>}
-        </div>
-
-        {/* YEAR */}
-        <div>
-          <label className="text-sm text-gray-600">Year *</label>
-          <input
-            type="number"
-            name="year"
-            value={form.year}
-            onChange={handleChange}
-            placeholder="Enter year"
-            className={`w-full border p-3 rounded-xl mt-1 focus:border-orange-500 outline-none ${
-              errors.year ? "border-red-500" : "border-gray-300"
-            }`}
-          />
-          {errors.year && <p className="text-red-500 text-sm mt-1">{errors.year}</p>}
-        </div>
-
-        {/* COLOR */}
-        <div>
-          <label className="text-sm text-gray-600">Color</label>
-          <input
-            type="text"
-            name="color"
-            value={form.color}
-            onChange={handleChange}
-            placeholder="Enter color"
-            className={`w-full border p-3 rounded-xl mt-1 focus:border-orange-500 outline-none ${
-              errors.color ? "border-red-500" : "border-gray-300"
-            }`}
-          />
-          {errors.color && <p className="text-red-500 text-sm mt-1">{errors.color}</p>}
-        </div>
-
-        {/* PRICE PER DAY */}
-        <div>
-          <label className="text-sm text-gray-600">Price per day *</label>
-          <input
-            type="number"
-            name="pricePerDay"
-            value={form.pricePerDay}
-            onChange={handleChange}
-            placeholder="Enter price per day"
-            className={`w-full border p-3 rounded-xl mt-1 focus:border-orange-500 outline-none ${
-              errors.pricePerDay ? "border-red-500" : "border-gray-300"
-            }`}
-          />
-          {errors.pricePerDay && <p className="text-red-500 text-sm mt-1">{errors.pricePerDay}</p>}
-        </div>
-
-        {/* SEATS */}
-        <div>
-          <label className="text-sm text-gray-600">Seats *</label>
-          <input
-            type="number"
-            name="seats"
-            value={form.seats}
-            onChange={handleChange}
-            placeholder="Enter number of seats"
-            className={`w-full border p-3 rounded-xl mt-1 focus:border-orange-500 outline-none ${
-              errors.seats ? "border-red-500" : "border-gray-300"
-            }`}
-          />
-          {errors.seats && <p className="text-red-500 text-sm mt-1">{errors.seats}</p>}
-        </div>
-
-        {/* CATEGORY */}
-        <div>
-          <label className="text-sm text-gray-600">Category *</label>
-          <select
-            name="category"
-            value={form.category}
-            onChange={handleChange}
-            className={`w-full border p-3 rounded-xl mt-1 focus:border-orange-500 outline-none ${
-              errors.category ? "border-red-500" : "border-gray-300"
-            }`}
-          >
-            <option value="">Select category</option>
-            <option value="SUV">SUV</option>
-            <option value="Sedan">Sedan</option>
-            <option value="City">City</option>
-            <option value="Luxury">Luxury</option>
-            <option value="4x4">4x4</option>
-            <option value="Utility">Utility</option>
-          </select>
-          {errors.category && <p className="text-red-500 text-sm mt-1">{errors.category}</p>}
-        </div>
-
-        {/* TRANSMISSION */}
-        <div>
-          <label className="text-sm text-gray-600">Transmission *</label>
-          <select
-            name="transmission"
-            value={form.transmission}
-            onChange={handleChange}
-            className={`w-full border p-3 rounded-xl mt-1 focus:border-orange-500 outline-none ${
-              errors.transmission ? "border-red-500" : "border-gray-300"
-            }`}
-          >
-            <option value="">Select transmission</option>
-            <option value="Automatic">Automatic</option>
-            <option value="Manual">Manual</option>
-          </select>
-          {errors.transmission && <p className="text-red-500 text-sm mt-1">{errors.transmission}</p>}
-        </div>
-
-        {/* FUEL */}
-        <div>
-          <label className="text-sm text-gray-600">Fuel *</label>
-          <select
-            name="fuel"
-            value={form.fuel}
-            onChange={handleChange}
-            className={`w-full border p-3 rounded-xl mt-1 focus:border-orange-500 outline-none ${
-              errors.fuel ? "border-red-500" : "border-gray-300"
-            }`}
-          >
-            <option value="">Select fuel</option>
-            <option value="Petrol">Petrol</option>
-            <option value="Diesel">Diesel</option>
-            <option value="Hybrid">Hybrid</option>
-            <option value="Electric">Electric</option>
-          </select>
-          {errors.fuel && <p className="text-red-500 text-sm mt-1">{errors.fuel}</p>}
-        </div>
-
-        {/* EQUIPMENTS */}
-        <div>
-          <label className="text-sm text-gray-600">Equipments</label>
-          <input
-            type="text"
-            name="equipments"
-            value={form.equipments}
-            onChange={handleChange}
-            placeholder="Comma separated"
-            className={`w-full border p-3 rounded-xl mt-1 focus:border-orange-500 outline-none ${
-              errors.equipments ? "border-red-500" : "border-gray-300"
-            }`}
-          />
-          {errors.equipments && <p className="text-red-500 text-sm mt-1">{errors.equipments}</p>}
-        </div>
-
-        {/* DESCRIPTION */}
-        <div className="md:col-span-2">
-          <label className="text-sm text-gray-600">Description</label>
-          <textarea
-            name="description"
-            value={form.description}
-            onChange={handleChange}
-            placeholder="Enter description"
-            className={`w-full border p-3 rounded-xl mt-1 focus:border-orange-500 outline-none ${
-              errors.description ? "border-red-500" : "border-gray-300"
-            }`}
-            rows={4}
-          />
-          {errors.description && <p className="text-red-500 text-sm mt-1">{errors.description}</p>}
-        </div>
-
-        {/* IMAGE */}
-        <div className="md:col-span-2">
-          <label className="text-sm text-gray-600">Car Image *</label>
-          <input
-            type="file"
-            accept="image/*"
-            onChange={handleImageUpload}
-            className={`w-full border p-3 rounded-xl mt-1 focus:border-orange-500 outline-none ${
-              errors.image ? "border-red-500" : "border-gray-300"
-            }`}
-          />
-          {loadingImg && <p className="text-orange-500 mt-1">Uploading...</p>}
-          {form.image && (
-            <img
-              src={form.image}
-              alt="Car preview"
-              className="mt-2 w-32 h-32 object-cover rounded-xl border"
+        <form onSubmit={(e) => e.preventDefault()} className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {/* BRAND */}
+          <div className="space-y-1.5">
+            <label className="text-sm font-semibold text-gray-700">Brand *</label>
+            <input
+              type="text"
+              name="brand"
+              value={form.brand}
+              onChange={handleChange}
+              placeholder="e.g. Mercedes-Benz"
+              className={`w-full border p-3 rounded-xl focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 outline-none transition-all ${
+                errors.brand ? "border-red-500 bg-red-50" : "border-gray-200 bg-gray-50/30"
+              }`}
             />
-          )}
-          {errors.image && <p className="text-red-500 text-sm mt-1">{errors.image}</p>}
-        </div>
+            {errors.brand && <p className="text-red-500 text-xs font-medium">{errors.brand}</p>}
+          </div>
 
-        {/* BUTTON */}
-        <div className="md:col-span-2 flex justify-end mt-4 pt-4 border-t">
-          <button
-            type="button"
-            onClick={handleAddClick}
-            disabled={loading}
-            className="px-6 py-3 bg-orange-500 text-white rounded-xl hover:bg-orange-600 transition font-semibold"
-          >
-            {loading ? "Adding..." : "Add Car"}
-          </button>
-        </div>
-      </form>
+          {/* MODEL */}
+          <div className="space-y-1.5">
+            <label className="text-sm font-semibold text-gray-700">Model *</label>
+            <input
+              type="text"
+              name="model"
+              value={form.model}
+              onChange={handleChange}
+              placeholder="e.g. G-Class"
+              className={`w-full border p-3 rounded-xl focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 outline-none transition-all ${
+                errors.model ? "border-red-500 bg-red-50" : "border-gray-200 bg-gray-50/30"
+              }`}
+            />
+            {errors.model && <p className="text-red-500 text-xs font-medium">{errors.model}</p>}
+          </div>
+
+          {/* YEAR */}
+          <div className="space-y-1.5">
+            <label className="text-sm font-semibold text-gray-700">Year *</label>
+            <input
+              type="number"
+              name="year"
+              value={form.year}
+              onChange={handleChange}
+              placeholder="2024"
+              className={`w-full border p-3 rounded-xl focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 outline-none transition-all ${
+                errors.year ? "border-red-500 bg-red-50" : "border-gray-200 bg-gray-50/30"
+              }`}
+            />
+            {errors.year && <p className="text-red-500 text-xs font-medium">{errors.year}</p>}
+          </div>
+
+          {/* COLOR */}
+          <div className="space-y-1.5">
+            <label className="text-sm font-semibold text-gray-700">Color</label>
+            <input
+              type="text"
+              name="color"
+              value={form.color}
+              onChange={handleChange}
+              placeholder="e.g. Obsidian Black"
+              className={`w-full border p-3 rounded-xl focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 outline-none transition-all ${
+                errors.color ? "border-red-500 bg-red-50" : "border-gray-200 bg-gray-50/30"
+              }`}
+            />
+          </div>
+
+          {/* PRICE PER DAY */}
+          <div className="space-y-1.5">
+            <label className="text-sm font-semibold text-gray-700">Price per day (DH) *</label>
+            <input
+              type="number"
+              name="pricePerDay"
+              value={form.pricePerDay}
+              onChange={handleChange}
+              placeholder="250"
+              className={`w-full border p-3 rounded-xl focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 outline-none transition-all ${
+                errors.pricePerDay ? "border-red-500 bg-red-50" : "border-gray-200 bg-gray-50/30"
+              }`}
+            />
+            {errors.pricePerDay && <p className="text-red-500 text-xs font-medium">{errors.pricePerDay}</p>}
+          </div>
+
+          {/* SEATS */}
+          <div className="space-y-1.5">
+            <label className="text-sm font-semibold text-gray-700">Seats *</label>
+            <input
+              type="number"
+              name="seats"
+              value={form.seats}
+              onChange={handleChange}
+              placeholder="5"
+              className={`w-full border p-3 rounded-xl focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 outline-none transition-all ${
+                errors.seats ? "border-red-500 bg-red-50" : "border-gray-200 bg-gray-50/30"
+              }`}
+            />
+            {errors.seats && <p className="text-red-500 text-xs font-medium">{errors.seats}</p>}
+          </div>
+
+          {/* CATEGORY */}
+          <div className="space-y-1.5">
+            <label className="text-sm font-semibold text-gray-700">Category *</label>
+            <select
+              name="category"
+              value={form.category}
+              onChange={handleChange}
+              className={`w-full border p-3 rounded-xl focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 outline-none transition-all appearance-none bg-no-repeat bg-[right_1rem_center] cursor-pointer ${
+                errors.category ? "border-red-500 bg-red-50" : "border-gray-200 bg-gray-50/30"
+              }`}
+              style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='currentColor'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='Length 19 9l-7 7-7-7'/%3E%3C/svg%3E")`, backgroundSize: '1.25rem' }}
+            >
+              <option value="">Select category</option>
+              <option value="SUV">SUV</option>
+              <option value="Sedan">Sedan</option>
+              <option value="Hatchback">Hatchback</option>
+              <option value="Sport">Sport</option>
+            </select>
+            {errors.category && <p className="text-red-500 text-xs font-medium">{errors.category}</p>}
+          </div>
+
+          {/* TRANSMISSION */}
+          <div className="space-y-1.5">
+            <label className="text-sm font-semibold text-gray-700">Transmission *</label>
+            <select
+              name="transmission"
+              value={form.transmission}
+              onChange={handleChange}
+              className={`w-full border p-3 rounded-xl focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 outline-none transition-all appearance-none bg-no-repeat bg-[right_1rem_center] cursor-pointer ${
+                errors.transmission ? "border-red-500 bg-red-50" : "border-gray-200 bg-gray-50/30"
+              }`}
+              style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='currentColor'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'/%3E%3C/svg%3E")`, backgroundSize: '1.25rem' }}
+            >
+              <option value="">Select transmission</option>
+              <option value="Automatic">Automatic</option>
+              <option value="Manual">Manual</option>
+            </select>
+            {errors.transmission && <p className="text-red-500 text-xs font-medium">{errors.transmission}</p>}
+          </div>
+
+          {/* FUEL */}
+          <div className="space-y-1.5">
+            <label className="text-sm font-semibold text-gray-700">Fuel *</label>
+            <select
+              name="fuel"
+              value={form.fuel}
+              onChange={handleChange}
+              className={`w-full border p-3 rounded-xl focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 outline-none transition-all appearance-none bg-no-repeat bg-[right_1rem_center] cursor-pointer ${
+                errors.fuel ? "border-red-500 bg-red-50" : "border-gray-200 bg-gray-50/30"
+              }`}
+              style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='currentColor'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'/%3E%3C/svg%3E")`, backgroundSize: '1.25rem' }}
+            >
+              <option value="">Select fuel</option>
+              <option value="Petrol">Petrol</option>
+              <option value="Diesel">Diesel</option>
+              <option value="Hybrid">Hybrid</option>
+              <option value="Electric">Electric</option>
+            </select>
+            {errors.fuel && <p className="text-red-500 text-xs font-medium">{errors.fuel}</p>}
+          </div>
+
+          {/* CONSUMPTION */}
+          <div className="space-y-1.5">
+            <label className="text-sm font-semibold text-gray-700">Consumption *</label>
+            <input
+              type="text"
+              name="consumption"
+              value={form.consumption}
+              onChange={handleChange}
+              placeholder="e.g. 6.5L/100km"
+              className={`w-full border p-3 rounded-xl focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 outline-none transition-all ${
+                errors.consumption ? "border-red-500 bg-red-50" : "border-gray-200 bg-gray-50/30"
+              }`}
+            />
+            {errors.consumption && <p className="text-red-500 text-xs font-medium">{errors.consumption}</p>}
+          </div>
+
+          {/* EQUIPMENTS */}
+          <div className="space-y-1.5">
+            <label className="text-sm font-semibold text-gray-700">Equipments</label>
+            <input
+              type="text"
+              name="equipments"
+              value={form.equipments}
+              onChange={handleChange}
+              placeholder="GPS, Bluetooth, Leather Seats"
+              className={`w-full border p-3 rounded-xl focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 outline-none transition-all ${
+                errors.equipments ? "border-red-500 bg-red-50" : "border-gray-200 bg-gray-50/30"
+              }`}
+            />
+          </div>
+
+          {/* DESCRIPTION */}
+          <div className="md:col-span-2 space-y-1.5">
+            <label className="text-sm font-semibold text-gray-700">Description *</label>
+            <textarea
+              name="description"
+              value={form.description}
+              onChange={handleChange}
+              placeholder="Provide a detailed description of the vehicle..."
+              className={`w-full border p-3 rounded-xl focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 outline-none transition-all ${
+                errors.description ? "border-red-500 bg-red-50" : "border-gray-200 bg-gray-50/30"
+              }`}
+              rows={4}
+            />
+            {errors.description && <p className="text-red-500 text-xs font-medium">{errors.description}</p>}
+          </div>
+
+          {/* IMAGE */}
+          <div className="md:col-span-2 space-y-3">
+            <label className="text-sm font-semibold text-gray-700">Vehicle Image *</label>
+            <div className="flex flex-col md:flex-row gap-4 items-start">
+              <div className="relative w-full md:w-auto">
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={handleImageUpload}
+                  className="hidden"
+                  id="image-upload"
+                />
+                <label 
+                  htmlFor="image-upload"
+                  className="flex items-center justify-center px-6 py-3 border-2 border-dashed border-gray-300 rounded-xl hover:border-orange-500 hover:bg-orange-50 cursor-pointer transition-all group w-full md:w-64 h-32"
+                >
+                  <div className="text-center">
+                    <p className="text-sm font-medium text-gray-600 group-hover:text-orange-600">Click to upload image</p>
+                    <p className="text-xs text-gray-400 mt-1">PNG, JPG up to 10MB</p>
+                  </div>
+                </label>
+              </div>
+              
+              {loadingImg && (
+                <div className="flex items-center gap-2 mt-2">
+                  <div className="w-5 h-5 border-2 border-orange-500 border-t-transparent rounded-full animate-spin"></div>
+                  <p className="text-orange-500 text-sm font-medium">Uploading...</p>
+                </div>
+              )}
+
+              {form.image && (
+                <div className="relative group">
+                  <img
+                    src={form.image}
+                    alt="Car preview"
+                    className="w-32 h-32 object-cover rounded-xl border border-gray-200 shadow-sm"
+                  />
+                  <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 rounded-xl transition-opacity flex items-center justify-center">
+                    <p className="text-white text-xs font-bold font-mono">CHANGE</p>
+                  </div>
+                </div>
+              )}
+            </div>
+            {errors.image && <p className="text-red-500 text-xs font-medium">{errors.image}</p>}
+          </div>
+
+          {/* BUTTON */}
+          <div className="md:col-span-2 flex justify-end mt-6 pt-6 border-t border-gray-100">
+            <button
+              type="button"
+              onClick={handleAddClick}
+              disabled={loading}
+              className="w-full md:w-auto px-8 py-3.5 bg-orange-500 text-white rounded-xl hover:bg-orange-600 active:scale-95 transition-all font-bold shadow-lg shadow-orange-500/25 disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+            >
+              {loading ? (
+                <>
+                  <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                  <span>Adding Vehicle...</span>
+                </>
+              ) : (
+                "Add Vehicle"
+              )}
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
   );
 }

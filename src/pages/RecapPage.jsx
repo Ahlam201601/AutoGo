@@ -13,6 +13,7 @@ export default function RecapPage() {
   const { reservation } = location.state || {};
   const { loading } = useSelector((state) => state.reservation);
   const [isConfirming, setIsConfirming] = useState(false);
+  const [isConfirmed, setIsConfirmed] = useState(false);
 
   if (!reservation) return <p className="text-center mt-20">No reservation found.</p>;
 
@@ -24,11 +25,11 @@ export default function RecapPage() {
         status: "pending",
       })).unwrap();
       
+      setIsConfirmed(true);
       toast.success("Reservation confirmed successfully!", {
         duration: 3000,
         icon: "✅",
       });
-      setTimeout(() => navigate("/"), 1500);
     } catch (error) {
       toast.error("Error during confirmation. Please try again.", {
         duration: 4000,
@@ -40,95 +41,115 @@ export default function RecapPage() {
   return (
     <>
       <Navbar />
-      <div className="min-h-screen bg-gray-50 pt-24 px-4 md:px-8 pb-12">
-        <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div className="min-h-screen bg-gray-50 pt-24 px-4 md:px-8 pb-12 flex items-center justify-center">
+        <div className="max-w-6xl w-full mx-auto grid grid-cols-1 lg:grid-cols-2 gap-6 items-stretch">
           
           {/* CAR CARD */}
-          <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-5 md:p-6">
+          <div className="bg-white rounded-[2rem] shadow-sm border border-gray-100 p-5 md:p-6 flex flex-col items-center text-center lg:items-start lg:text-left transition-all duration-300">
             <img
               src={reservation.carImage} 
               alt={reservation.carName}
-              className="w-full h-56 object-cover rounded-lg mb-6"
+              className="w-full h-64 object-cover rounded-2xl mb-8"
             />
-            <h2 className="text-xl md:text-2xl font-bold text-gray-900">{reservation.carName}</h2>
-            <div className="pt-4 border-t border-gray-100">
-              <span className="text-2xl md:text-3xl font-bold text-orange-500">{reservation.totalPrice} DH</span>
-              <span className="text-gray-500 text-sm ml-1">/ day</span>
+            <h2 className="text-2xl md:text-3xl font-bold text-[#1A202C] mb-2">{reservation.carName}</h2>
+            <p className="text-gray-400 text-sm mb-6">{reservation.year} • {reservation.color || "Automatic"}</p>
+            <div className="mt-auto w-full pt-6 border-t border-gray-100">
+              <span className="text-3xl md:text-4xl font-bold text-orange-500">{reservation.totalPrice} DH</span>
+              <span className="text-gray-500 text-lg ml-1 font-medium">/ day</span>
             </div>
           </div>
 
-          {/* RECAP CARD */}
-          <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 md:p-8 flex flex-col justify-between">
-            <div>
-              <button
-                onClick={() => {
-                  dispatch(setDraftReservation({
-                    customerName: reservation.customerName,
-                    customerEmail: reservation.customerEmail,
-                    customerPhone: reservation.customerPhone,
-                    startDate: reservation.startDate,
-                    endDate: reservation.endDate,
-                  }));
-                }}
-                className="inline-flex items-center gap-2 text-gray-600 hover:text-orange-500 text-sm font-medium mb-4 bg-transparent border-none cursor-pointer"
-              >
-                <FiArrowLeft size={18} />
-                <Link to={`/reservation/${reservation.carId}`}>Edit</Link>
-              </button>
+          {/* RECAP / CONFIRMATION CARD */}
+          <div className="bg-white rounded-[2rem] shadow-sm border border-gray-100 p-8 flex flex-col justify-center min-h-[500px] transition-all duration-500 overflow-hidden">
+            {!isConfirmed ? (
+              <>
+                <div className="flex-1">
+                  <button
+                    onClick={() => {
+                      dispatch(setDraftReservation({
+                        customerName: reservation.customerName,
+                        customerEmail: reservation.customerEmail,
+                        customerPhone: reservation.customerPhone,
+                        startDate: reservation.startDate,
+                        endDate: reservation.endDate,
+                      }));
+                      navigate(`/reservation/${reservation.carId}`);
+                    }}
+                    className="inline-flex items-center gap-2 text-gray-400 hover:text-orange-500 text-sm font-medium mb-6 bg-transparent border-none cursor-pointer group transition-colors"
+                  >
+                    <FiArrowLeft size={18} className="group-hover:-translate-x-1 transition-transform" />
+                    <span>Edit details</span>
+                  </button>
 
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">Summary</h2>
+                  <h2 className="text-3xl font-bold text-[#1A202C] mb-8">Summary</h2>
 
-              <div className="space-y-4">
-                {/* Name */}
-                <div className="flex justify-between border-b border-gray-200 pb-2">
-                  <span className="text-gray-600">Name</span>
-                  <span className="text-gray-900 font-medium">{reservation.customerName}</span>
+                  <div className="space-y-5">
+                    {[
+                      { label: "Name", value: reservation.customerName },
+                      { label: "Email", value: reservation.customerEmail },
+                      { label: "Phone", value: reservation.customerPhone },
+                      { label: "Period", value: `${reservation.startDate} - ${reservation.endDate}` },
+                      { label: "Duration", value: `${reservation.duration} day(s)` },
+                    ].map((item, idx) => (
+                      <div key={idx} className="flex justify-between items-center border-b border-gray-100 pb-3">
+                        <span className="text-gray-500 font-medium">{item.label}</span>
+                        <span className="text-[#1A202C] font-semibold">{item.value}</span>
+                      </div>
+                    ))}
+
+                    <div className="flex justify-between items-center bg-orange-50/50 rounded-2xl p-4 mt-6">
+                      <span className="text-gray-700 font-bold">Total Price</span>
+                      <span className="text-orange-500 font-extrabold text-2xl">{reservation.totalPrice} DH</span>
+                    </div>
+                  </div>
                 </div>
 
-                {/* Email */}
-                <div className="flex justify-between border-b border-gray-200 pb-2">
-                  <span className="text-gray-600">Email</span>
-                  <span className="text-gray-900 font-medium">{reservation.customerEmail}</span>
+                <button 
+                  onClick={handleConfirm}
+                  disabled={isConfirming}
+                  className={`mt-10 w-full py-4 font-bold text-lg rounded-2xl transition-all shadow-lg shadow-orange-100 cursor-pointer active:scale-[0.98] ${
+                    isConfirming 
+                      ? "bg-orange-300 !cursor-not-allowed text-white"
+                      : "bg-orange-500 text-white hover:bg-orange-600 hover:shadow-orange-200"
+                  }`}
+                >
+                  {isConfirming ? "Confirming..." : "Confirm Reservation"}
+                </button>
+              </>
+            ) : (
+              <div className="flex flex-col items-center justify-center text-center animate-in fade-in zoom-in duration-500">
+                {/* SUCCESS ICON */}
+                <div className="w-24 h-24 bg-orange-50 rounded-full flex items-center justify-center mb-10 relative">
+                  <div className="absolute inset-0 bg-orange-100 rounded-full animate-ping opacity-20 scale-125"></div>
+                  <div className="w-12 h-12 bg-white rounded-full shadow-sm flex items-center justify-center">
+                    <svg className="w-6 h-6 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="4">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                    </svg>
+                  </div>
                 </div>
 
-                {/* Phone */}
-                <div className="flex justify-between border-b border-gray-200 pb-2">
-                  <span className="text-gray-600">Phone</span>
-                  <span className="text-gray-900 font-medium">{reservation.customerPhone}</span>
-                </div>
+                <h2 className="text-3xl font-extrabold text-[#1A202C] mb-4">Reservation confirmed!</h2>
+                <p className="text-gray-500 text-lg max-w-sm mb-10 leading-relaxed">
+                  A confirmation email has been sent to <br />
+                  <span className="text-[#1A202C] font-semibold underline decoration-orange-200 decoration-2">{reservation.customerEmail}</span>
+                </p>
 
-                {/* Dates */}
-                <div className="flex justify-between border-b border-gray-200 pb-2">
-                  <span className="text-gray-600">Period</span>
-                  <span className="text-gray-900 font-medium">{reservation.startDate} - {reservation.endDate}</span>
-                </div>
-
-                {/* Duration */}
-                <div className="flex justify-between border-b border-gray-200 pb-2">
-                  <span className="text-gray-600">Duration</span>
-                  <span className="text-gray-900 font-medium">{reservation.duration} day(s)</span>
-                </div>
-
-                {/* Total */}
-                <div className="flex justify-between items-center bg-orange-50 rounded-lg p-3 mt-4">
-                  <span className="text-gray-700 font-semibold">Total Price</span>
-                  <span className="text-orange-500 font-bold text-lg">{reservation.totalPrice} DH</span>
+                <div className="w-full space-y-4">
+                  <button
+                    onClick={() => navigate("/cars")}
+                    className="w-full py-4 bg-orange-500 text-white font-bold rounded-2xl hover:bg-orange-600 transition-all shadow-lg shadow-orange-100 active:scale-[0.98] cursor-pointer"
+                  >
+                    Explore other vehicles
+                  </button>
+                  <button
+                    onClick={() => navigate("/")}
+                    className="w-full py-4 bg-white border-2 border-gray-100 text-gray-700 font-bold rounded-2xl hover:bg-gray-50 hover:border-gray-200 transition-all active:scale-[0.98] cursor-pointer"
+                  >
+                    Back to home
+                  </button>
                 </div>
               </div>
-            </div>
-
-            {/* Bouton */}
-            <button 
-              onClick={handleConfirm}
-              disabled={isConfirming}
-              className={`mt-6 w-full py-3 font-semibold rounded-lg transition-all shadow-md cursor-pointer ${
-                isConfirming 
-                  ? "bg-orange-300 !cursor-not-allowed text-white"
-                  : "bg-orange-500 text-white hover:bg-orange-600"
-              }`}
-            >
-              {isConfirming ? "Confirming..." : "Confirm Reservation"}
-            </button>
+            )}
           </div>
         </div>
       </div>

@@ -58,6 +58,7 @@ export default function EditCar({ car, onClose }) {
     if (!form.transmission) temp.transmission = "Transmission is required";
     if (!form.fuel) temp.fuel = "Fuel is required";
     if (!form.image) temp.image = "Image is required";
+    if (!form.color) temp.color = "Color is required";
 
     setErrors(temp);
     return Object.keys(temp).length === 0;
@@ -236,6 +237,19 @@ export default function EditCar({ car, onClose }) {
               <option value="Electric">Electric</option>
             </select>
             {errors.fuel && <p className="text-red-500 text-sm">{errors.fuel}</p>}
+          </div>
+
+          {/* COLOR */}
+          <div>
+            <label className="text-sm text-gray-600">Color *</label>
+            <input
+              type="text"
+              name="color"
+              value={form.color || ""}
+              onChange={handleChange}
+              className="w-full border p-3 rounded-xl mt-1"
+            />
+            {errors.color && <p className="text-red-500 text-sm">{errors.color}</p>}
           </div>
 
           {/* DESCRIPTION */}

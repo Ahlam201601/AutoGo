@@ -139,6 +139,14 @@ export default function CarCard({ car, isAdmin, onDeleteClick }) {
                 {car.seats || 4} seats
               </span>
             </div>
+
+            {/* Color */}
+            <div className="flex flex-col items-center gap-1 text-center">
+              <div className="w-4 h-4 rounded-full border border-gray-200" style={{ backgroundColor: car.color?.toLowerCase() || 'transparent' }}></div>
+              <span className="text-xs font-medium text-gray-700">
+                {car.color || "N/A"}
+              </span>
+            </div>
           </div>
 
           {/* ACTIONS - Pushed to bottom */}
