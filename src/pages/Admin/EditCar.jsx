@@ -264,7 +264,7 @@ export default function EditCar({ car, onClose }) {
             />
           </div>
 
-          {/* EQUIPEMENTS */}
+          {/* EQUIPMENTS */}
           <div className="md:col-span-2">
             <label className="text-sm text-gray-600">
               Equipments (comma separated)

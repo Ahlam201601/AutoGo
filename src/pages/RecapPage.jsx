@@ -1,6 +1,7 @@
 import { useLocation, Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { setDraftReservation, createReservation } from "../redux/Slices/reservationSlice";
+import { notifyN8n } from "../redux/Slices/carsSlice";
 import Navbar from "../Components/Navbar";
 import { FiArrowLeft } from "react-icons/fi";
 import toast from "react-hot-toast";
@@ -11,7 +12,6 @@ export default function RecapPage() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { reservation } = location.state || {};
-  const { loading } = useSelector((state) => state.reservation);
   const [isConfirming, setIsConfirming] = useState(false);
   const [isConfirmed, setIsConfirmed] = useState(false);
 
@@ -24,6 +24,9 @@ export default function RecapPage() {
         ...reservation,
         status: "pending",
       })).unwrap();
+
+      // Send to n8n webhook via Redux
+      dispatch(notifyN8n(reservation));
       
       setIsConfirmed(true);
       toast.success("Reservation confirmed successfully!", {
@@ -83,24 +86,38 @@ export default function RecapPage() {
 
                   <h2 className="text-3xl font-bold text-[#1A202C] mb-8">Summary</h2>
 
-                  <div className="space-y-5">
-                    {[
-                      { label: "Name", value: reservation.customerName },
-                      { label: "Email", value: reservation.customerEmail },
-                      { label: "Phone", value: reservation.customerPhone },
-                      { label: "Period", value: `${reservation.startDate} - ${reservation.endDate}` },
-                      { label: "Duration", value: `${reservation.duration} day(s)` },
-                    ].map((item, idx) => (
-                      <div key={idx} className="flex justify-between items-center border-b border-gray-100 pb-3">
-                        <span className="text-gray-500 font-medium">{item.label}</span>
-                        <span className="text-[#1A202C] font-semibold">{item.value}</span>
-                      </div>
-                    ))}
+                  <div className="space-y-4">
 
-                    <div className="flex justify-between items-center bg-orange-50/50 rounded-2xl p-4 mt-6">
+                    <div className="flex flex-col gap-1">
+                      <label htmlFor="name" className="text-sm font-medium text-gray-500">Name</label>
+                      <input id="name" type="text" readOnly value={reservation.customerName || ""} className="w-full px-4 py-2.5 rounded-xl border border-gray-200 bg-gray-50 text-gray-900 text-sm focus:outline-none" />
+                    </div>
+
+                    <div className="flex flex-col gap-1">
+                      <label htmlFor="email" className="text-sm font-medium text-gray-500">Email</label>
+                      <input id="email" type="text" readOnly value={reservation.customerEmail || ""} className="w-full px-4 py-2.5 rounded-xl border border-gray-200 bg-gray-50 text-gray-900 text-sm focus:outline-none" />
+                    </div>
+
+                    <div className="flex flex-col gap-1">
+                      <label htmlFor="phone" className="text-sm font-medium text-gray-500">Phone</label>
+                      <input id="phone" type="text" readOnly value={reservation.customerPhone || ""} className="w-full px-4 py-2.5 rounded-xl border border-gray-200 bg-gray-50 text-gray-900 text-sm focus:outline-none" />
+                    </div>
+
+                    <div className="flex flex-col gap-1">
+                      <label htmlFor="period" className="text-sm font-medium text-gray-500">Period</label>
+                      <input id="period" type="text" readOnly value={`${reservation.startDate} - ${reservation.endDate}`} className="w-full px-4 py-2.5 rounded-xl border border-gray-200 bg-gray-50 text-gray-900 text-sm focus:outline-none" />
+                    </div>
+
+                    <div className="flex flex-col gap-1">
+                      <label htmlFor="duration" className="text-sm font-medium text-gray-500">Duration</label>
+                      <input id="duration" type="text" readOnly value={`${reservation.duration} day(s)`} className="w-full px-4 py-2.5 rounded-xl border border-gray-200 bg-gray-50 text-gray-900 text-sm focus:outline-none" />
+                    </div>
+
+                    <div className="flex justify-between items-center bg-orange-50/50 rounded-2xl p-4 mt-2">
                       <span className="text-gray-700 font-bold">Total Price</span>
                       <span className="text-orange-500 font-extrabold text-2xl">{reservation.totalPrice} DH</span>
                     </div>
+
                   </div>
                 </div>
 
@@ -139,7 +156,7 @@ export default function RecapPage() {
                     onClick={() => navigate("/cars")}
                     className="w-full py-4 bg-orange-500 text-white font-bold rounded-2xl hover:bg-orange-600 transition-all shadow-lg shadow-orange-100 active:scale-[0.98] cursor-pointer"
                   >
-                    Explore other vehicles
+                    Browse Cars
                   </button>
                   <button
                     onClick={() => navigate("/")}

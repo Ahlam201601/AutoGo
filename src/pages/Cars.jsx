@@ -47,13 +47,13 @@ export default function Cars() {
 
       {/* Main Content with white background */}
       <div className="min-h-screen bg-white pt-16">
-        {/* Même container que la Navbar */}
+        {/* Same container as the Navbar */}
         <div className="container mx-auto px-4 md:px-8 py-8">
           
-          {/* Flex container pour sidebar et contenu */}
+          {/* Flex container for sidebar and content */}
           <div className="flex flex-col lg:flex-row gap-8">
             
-            {/* Sidebar des filtres */}
+            {/* Filters sidebar */}
             <motion.div 
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
@@ -150,7 +150,7 @@ export default function Cars() {
               </div>
             </motion.div>
 
-            {/* Contenu principal - Grille de voitures */}
+            {/* Main content - Cars grid */}
             <div className="lg:w-3/4">
               {/* LOADING */}
               {status === "loading" && (

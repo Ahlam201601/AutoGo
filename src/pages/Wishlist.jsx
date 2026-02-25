@@ -99,19 +99,19 @@ export default function Wishlist() {
             {wishlistItems.map((car) => (
               <div
                 key={car.id}
-                className="bg-white rounded-2xl overflow-hidden border border-gray-200 hover:border-orange-300 transition-all duration-300 hover:shadow-lg"
+                className="flex flex-col h-full bg-white rounded-3xl overflow-hidden shadow-sm border border-gray-100 transition-all duration-300 hover:shadow-md group"
               >
                 {/* IMAGE */}
-                <div className="relative h-48 overflow-hidden">
+                <div className="relative h-52 shrink-0 overflow-hidden">
                   <img
-                    src={car.image || "/car-placeholder.jpg"}
+                    src={car.image}
                     alt={car.model}
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                   />
 
                   {/* CATEGORY BADGE */}
                   {car.category && (
-                    <div className="absolute top-3 left-3 bg-orange-500 text-white text-xs uppercase font-bold px-3 py-1 rounded">
+                    <div className="absolute top-3 left-3 bg-[#1A202C]/80 backdrop-blur-sm text-white text-[10px] uppercase tracking-wider font-bold px-3 py-1 rounded-lg shadow-lg">
                       {car.category}
                     </div>
                   )}
@@ -119,38 +119,36 @@ export default function Wishlist() {
                   {/* TRASH ICON */}
                   <button
                     onClick={() => dispatch(removeFromWishlist(car.id))}
-                    className="absolute top-3 right-3 p-2 rounded-full bg-white text-red-500 hover:bg-red-500 hover:text-white transition-colors shadow-sm"
+                    className="absolute top-3 right-3 p-2 rounded-full bg-white text-red-500 hover:bg-red-500 hover:text-white transition-colors shadow-md cursor-pointer"
                   >
                     <FiTrash2 size={18} />
                   </button>
                 </div>
 
                 {/* CONTENT */}
-                <div className="p-5">
+                <div className="p-5 flex flex-col flex-1">
                   {/* TITLE & PRICE */}
-                  <div className="flex justify-between items-start mb-2">
-                    <div>
-                      <h3 className="text-gray-800 font-bold text-lg">
-                        {car.brand}{" "}
-                        <span className="text-gray-600 font-medium">{car.model}</span>
-                      </h3>
-                      <p className="text-gray-500 text-sm">{car.year}</p>
-                    </div>
-                    <div className="text-right">
-                      <span className="text-orange-500 font-bold text-lg">
+                  <div className="flex justify-between items-start mb-1">
+                    <h3 className="text-[#1A202C] font-bold text-lg leading-tight">
+                      {car.brand}{" "}
+                      <span className="text-gray-500 font-medium">{car.model}</span>
+                    </h3>
+                    <div className="flex flex-col items-end shrink-0">
+                      <span className="text-[#F97316] font-bold text-lg">
                         {car.pricePerDay} DH
                       </span>
-                      <div className="text-orange-500 text-xs">/ day</div>
+                      <span className="text-[#F97316] text-[12px] -mt-1">/ day</span>
                     </div>
                   </div>
 
+                  {/* YEAR */}
+                  <p className="text-gray-400 text-xs mb-3">{car.year}</p>
+
                   {/* FEATURES */}
-                  <div className="flex items-center justify-between mb-6 mt-4 border-t border-gray-100 pt-4">
+                  <div className="flex items-center justify-between mb-4">
                     {/* Transmission */}
                     <div className="flex flex-col items-center gap-1 text-center">
-                      <div className="text-gray-500">
-                        {getTransmissionIcon(car.transmission)}
-                      </div>
+                      <div className="text-gray-500">{getTransmissionIcon(car.transmission)}</div>
                       <span className="text-xs font-medium text-gray-700">
                         {car.transmission?.includes("Auto") ? "Auto" : "Manual"}
                       </span>
@@ -158,30 +156,35 @@ export default function Wishlist() {
 
                     {/* Fuel */}
                     <div className="flex flex-col items-center gap-1 text-center">
-                      <div className="text-gray-500">
-                        {getFuelIcon(car.fuel)}
-                      </div>
-                      <span className="text-xs font-medium text-gray-700">
-                        {car.fuel}
-                      </span>
+                      <div className="text-gray-500">{getFuelIcon(car.fuel)}</div>
+                      <span className="text-xs font-medium text-gray-700">{car.fuel}</span>
                     </div>
 
                     {/* Seats */}
                     <div className="flex flex-col items-center gap-1 text-center">
                       <FiUsers className="text-gray-500" size={16} />
-                      <span className="text-xs font-medium text-gray-700">
-                        {car.seats} seats
-                      </span>
+                      <span className="text-xs font-medium text-gray-700">{car.seats} seats</span>
+                    </div>
+
+                    {/* Color */}
+                    <div className="flex flex-col items-center gap-1 text-center">
+                      <div
+                        className="w-4 h-4 rounded-full border border-gray-200"
+                        style={{ backgroundColor: car.color?.toLowerCase() || "transparent" }}
+                      />
+                      <span className="text-xs font-medium text-gray-700">{car.color}</span>
                     </div>
                   </div>
 
-                  {/* ACTION BUTTON */}
-                  <button
-                    onClick={() => navigate(`/cars/${car.id}`)}
-                    className="w-full py-3 bg-orange-500 text-white text-sm font-bold rounded-lg hover:bg-orange-600 transition active:scale-95"
-                  >
-                    Rent Now
-                  </button>
+                  {/* RENT NOW */}
+                  <div className="mt-auto pt-4">
+                    <button
+                      onClick={() => navigate(`/cars/${car.id}`)}
+                      className="w-full py-2.5 bg-[#F97316] text-white text-sm font-bold rounded-xl hover:bg-orange-600 transition-all shadow-md shadow-orange-100 active:scale-95 cursor-pointer"
+                    >
+                      Rent Now
+                    </button>
+                  </div>
                 </div>
               </div>
             ))}

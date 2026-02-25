@@ -3,6 +3,7 @@ import axios from "axios";
 import { getAIRecommendations as fetchAIFromGemini } from "../../api/route";
 
 const API_URL = import.meta.env.VITE_BASE_URL;
+const N8N_WEBHOOK_URL = import.meta.env.VITE_N8N_WEBHOOK_URL;
 
 /* ===================== GET CARS ===================== */
 export const getCars = createAsyncThunk("cars/getCars", async () => {
@@ -50,6 +51,22 @@ export const getAIRecommendations = createAsyncThunk(
       return recommendedCars;
     } catch (error) {
       return rejectWithValue(error.message || "Failed to get AI recommendations");
+    }
+  }
+);
+
+/* ===================== NOTIFY N8N ===================== */
+export const notifyN8n = createAsyncThunk(
+  "cars/notifyN8n",
+  async (reservationData, { rejectWithValue }) => {
+    if (!N8N_WEBHOOK_URL) return;
+    try {
+      const res = await axios.post(N8N_WEBHOOK_URL, reservationData);
+      console.log("n8n Webhook notified successfully 🚀");
+      return res.data;
+    } catch (error) {
+      console.error("n8n Webhook notification failed:", error);
+      return rejectWithValue(error.message);
     }
   }
 );
@@ -113,6 +130,11 @@ const carsSlice = createSlice({
       })
       .addCase(getAIRecommendations.rejected, (state, action) => {
         state.recStatus = "failed";
+        state.error = action.payload;
+      })
+
+      /* -------- N8N NOTIFY -------- */
+      .addCase(notifyN8n.rejected, (state, action) => {
         state.error = action.payload;
       });
   },

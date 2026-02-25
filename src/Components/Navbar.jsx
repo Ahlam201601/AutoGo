@@ -1,5 +1,5 @@
 import { Link, NavLink } from "react-router-dom";
-import { FiHeart, FiLogIn, FiMenu, FiX } from "react-icons/fi"; // <-- Remplacé FiShoppingCart par FiHeart
+import { FiHeart, FiLogIn, FiMenu, FiX } from "react-icons/fi"; 
 import { useState } from "react";
 import { useSelector } from "react-redux";
 
@@ -63,7 +63,7 @@ export default function Navbar() {
               to="/wishlist"
               className="relative text-white hover:text-orange-500 transition-colors"
             >
-              <FiHeart size={22} /> {/* <-- Icône cœur */}
+              <FiHeart size={22} /> {/* <-- Heart icon */}
               {total > 0 && (
                 <span className="absolute -top-2 -right-2 bg-orange-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">
                   {total}
@@ -86,7 +86,7 @@ export default function Navbar() {
               to="/wishlist"
               className="relative text-white hover:text-orange-500 transition-colors"
             >
-              <FiHeart size={22} /> {/* <-- Icône cœur */}
+              <FiHeart size={22} /> {/* <-- Heart icon */}
               {total > 0 && (
                 <span className="absolute -top-2 -right-2 bg-orange-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">
                   {total}

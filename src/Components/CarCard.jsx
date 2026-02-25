@@ -29,7 +29,7 @@ export default function CarCard({ car, isAdmin, onDeleteClick }) {
     setCurrentCar(updatedCar);
   };
 
-  // Ajouter / retirer de la wishlist
+  // Add / remove from wishlist
   const handleWishlistClick = (e) => {
     e.stopPropagation();
     if (isInWishlist) {
@@ -41,7 +41,7 @@ export default function CarCard({ car, isAdmin, onDeleteClick }) {
     }
   };
 
-  // Icône transmission
+  // Transmission icon
   const getTransmissionIcon = () => {
     if (car.transmission?.toLowerCase().includes("auto")) {
       return <FiZap className="text-gray-500" size={16} />;
@@ -49,12 +49,11 @@ export default function CarCard({ car, isAdmin, onDeleteClick }) {
     return <FiSettings className="text-gray-500" size={16} />;
   };
 
-  // Icône carburant
+  // Fuel icon
   const getFuelIcon = () => {
     const fuel = car.fuel?.toLowerCase();
     if (
       fuel?.includes("hybrid") ||
-      fuel?.includes("électrique") ||
       fuel?.includes("electric")
     ) {
       return <FiBattery className="text-gray-500" size={16} />;
@@ -124,7 +123,7 @@ export default function CarCard({ car, isAdmin, onDeleteClick }) {
               </span>
             </div>
 
-            {/* Carburant */}
+            {/* Fuel */}
             <div className="flex flex-col items-center gap-1 text-center">
               <div className="text-gray-500">{getFuelIcon()}</div>
               <span className="text-xs font-medium text-gray-700">
@@ -132,11 +131,11 @@ export default function CarCard({ car, isAdmin, onDeleteClick }) {
               </span>
             </div>
 
-            {/* Sièges */}
+            {/* Seats */}
             <div className="flex flex-col items-center gap-1 text-center">
               <FiUsers className="text-gray-500" size={16} />
               <span className="text-xs font-medium text-gray-700">
-                {car.seats || 4} seats
+                {car.seats} seats
               </span>
             </div>
 
@@ -144,7 +143,7 @@ export default function CarCard({ car, isAdmin, onDeleteClick }) {
             <div className="flex flex-col items-center gap-1 text-center">
               <div className="w-4 h-4 rounded-full border border-gray-200" style={{ backgroundColor: car.color?.toLowerCase() || 'transparent' }}></div>
               <span className="text-xs font-medium text-gray-700">
-                {car.color || "N/A"}
+                {car.color}
               </span>
             </div>
           </div>
