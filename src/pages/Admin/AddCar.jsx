@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { addCar } from "../../redux/Slices/carsSlice";
-import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import { FiX, FiUploadCloud, FiCheck } from "react-icons/fi";
 
@@ -9,7 +8,6 @@ const CLOUDINARY_UPLOAD_URL = import.meta.env.VITE_CLOUDINARY_UPLOAD_URL;
 
 export default function AddCar() {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   const [form, setForm] = useState({
     brand: "",

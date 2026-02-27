@@ -84,8 +84,6 @@ export default function ReservationPage() {
       endDate: form.endDate,
       duration,
       totalPrice,
-      status: "pending",
-      createdAt: new Date().toISOString(),
     };
 
     // Clear draft and navigate to recap (reservation will be created in API when confirmed)

@@ -11,7 +11,7 @@ export default function RecapPage() {
   const location = useLocation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { reservation } = location.state || {};
+  const { reservation } = location.state;
   const [isConfirming, setIsConfirming] = useState(false);
   const [isConfirmed, setIsConfirmed] = useState(false);
 
@@ -22,7 +22,6 @@ export default function RecapPage() {
     try {
       await dispatch(createReservation({
         ...reservation,
-        status: "pending",
       })).unwrap();
 
       // Send to n8n webhook via Redux
@@ -55,7 +54,7 @@ export default function RecapPage() {
               className="w-full h-64 object-cover rounded-2xl mb-8"
             />
             <h2 className="text-2xl md:text-3xl font-bold text-[#1A202C] mb-2">{reservation.carName}</h2>
-            <p className="text-gray-400 text-sm mb-6">{reservation.year} • {reservation.color || "Automatic"}</p>
+            <p className="text-gray-400 text-sm mb-6">{reservation.year} • {reservation.color}</p>
             <div className="mt-auto w-full pt-6 border-t border-gray-100">
               <span className="text-3xl md:text-4xl font-bold text-orange-500">{reservation.totalPrice} DH</span>
               <span className="text-gray-500 text-lg ml-1 font-medium">/ day</span>
@@ -90,17 +89,17 @@ export default function RecapPage() {
 
                     <div className="flex flex-col gap-1">
                       <label htmlFor="name" className="text-sm font-medium text-gray-500">Name</label>
-                      <input id="name" type="text" readOnly value={reservation.customerName || ""} className="w-full px-4 py-2.5 rounded-xl border border-gray-200 bg-gray-50 text-gray-900 text-sm focus:outline-none" />
+                      <input id="name" type="text" readOnly value={reservation.customerName} className="w-full px-4 py-2.5 rounded-xl border border-gray-200 bg-gray-50 text-gray-900 text-sm focus:outline-none" />
                     </div>
 
                     <div className="flex flex-col gap-1">
                       <label htmlFor="email" className="text-sm font-medium text-gray-500">Email</label>
-                      <input id="email" type="text" readOnly value={reservation.customerEmail || ""} className="w-full px-4 py-2.5 rounded-xl border border-gray-200 bg-gray-50 text-gray-900 text-sm focus:outline-none" />
+                      <input id="email" type="text" readOnly value={reservation.customerEmail} className="w-full px-4 py-2.5 rounded-xl border border-gray-200 bg-gray-50 text-gray-900 text-sm focus:outline-none" />
                     </div>
 
                     <div className="flex flex-col gap-1">
                       <label htmlFor="phone" className="text-sm font-medium text-gray-500">Phone</label>
-                      <input id="phone" type="text" readOnly value={reservation.customerPhone || ""} className="w-full px-4 py-2.5 rounded-xl border border-gray-200 bg-gray-50 text-gray-900 text-sm focus:outline-none" />
+                      <input id="phone" type="text" readOnly value={reservation.customerPhone} className="w-full px-4 py-2.5 rounded-xl border border-gray-200 bg-gray-50 text-gray-900 text-sm focus:outline-none" />
                     </div>
 
                     <div className="flex flex-col gap-1">
