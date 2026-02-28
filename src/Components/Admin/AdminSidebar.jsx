@@ -1,9 +1,8 @@
-import { Car, Calendar, Plus, LogOut, Menu, X } from "lucide-react";
+import { Car, Calendar, Plus, LogOut, X } from "lucide-react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { logout } from "../../redux/Slices/authSlice";
 import toast from "react-hot-toast";
-import { useState } from "react";
 
 const AdminSidebar = ({ isOpen, onClose }) => {
   const dispatch = useDispatch();
