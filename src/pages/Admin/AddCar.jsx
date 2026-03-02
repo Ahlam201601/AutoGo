@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
+import axios from "axios";
 import { addCar } from "../../redux/Slices/carsSlice";
 import toast from "react-hot-toast";
 import { FiX, FiUploadCloud, FiCheck } from "react-icons/fi";
@@ -41,9 +42,8 @@ export default function AddCar() {
     formData.append("upload_preset", "cars_fill");
 
     try {
-      const res = await fetch(CLOUDINARY_UPLOAD_URL, { method: "POST", body: formData });
-      const data = await res.json();
-      setForm((prev) => ({ ...prev, image: data.secure_url }));
+      const res = await axios.post(CLOUDINARY_UPLOAD_URL, formData);
+      setForm((prev) => ({ ...prev, image: res.data.secure_url }));
     } catch {
       toast.error("Image upload failed ❌");
     } finally {

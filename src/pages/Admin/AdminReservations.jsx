@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from "react-redux";
-import { fetchReservations, updateReservation } from "../../redux/Slices/reservationSlice";
-import { FiCheck, FiClock, FiSearch, FiAlertCircle, FiX, FiCalendar, FiUser, FiPhone, FiMail, FiDollarSign } from "react-icons/fi";
+import { fetchReservations } from "../../redux/Slices/reservationSlice";
+import { FiClock, FiSearch, FiAlertCircle, FiX, FiCalendar, FiUser, FiPhone, FiMail, FiDollarSign } from "react-icons/fi";
 import toast from "react-hot-toast";
 import { useState, useEffect } from "react";
 

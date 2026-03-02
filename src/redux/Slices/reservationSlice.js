@@ -28,30 +28,6 @@ export const createReservation = createAsyncThunk(
   }
 );
 
-export const updateReservation = createAsyncThunk(
-  'reservation/updateReservation',
-  async ({ id, updates }, { rejectWithValue }) => {
-    try {
-      const response = await axios.put(`${API_URL}/${id}`, updates);
-      return response.data;
-    } catch (error) {
-      return rejectWithValue(error.response?.data?.message || error.message);
-    }
-  }
-);
-
-export const deleteReservation = createAsyncThunk(
-  'reservation/deleteReservation',
-  async (id, { rejectWithValue }) => {
-    try {
-      await axios.delete(`${API_URL}/${id}`);
-      return id;
-    } catch (error) {
-      return rejectWithValue(error.response?.data?.message || error.message);
-    }
-  }
-);
-
 const initialState = {
   reservations: [],
   draftReservation: null,
@@ -99,40 +75,10 @@ const reservationSlice = createSlice({
       .addCase(createReservation.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
-      })
-
-      // Update Reservation
-      .addCase(updateReservation.pending, (state) => {
-        state.loading = true;
-        state.error = null;
-      })
-      .addCase(updateReservation.fulfilled, (state, action) => {
-        state.loading = false;
-        const index = state.reservations.findIndex((r) => r.id === action.payload.id);
-        if (index !== -1) {
-          state.reservations[index] = action.payload;
-        }
-      })
-      .addCase(updateReservation.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.payload;
-      })
-
-      // Delete Reservation
-      .addCase(deleteReservation.pending, (state) => {
-        state.loading = true;
-        state.error = null;
-      })
-      .addCase(deleteReservation.fulfilled, (state, action) => {
-        state.loading = false;
-        state.reservations = state.reservations.filter((r) => r.id !== action.payload);
-      })
-      .addCase(deleteReservation.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.payload;
       });
   },
 });
+
 
 export const {
   setDraftReservation,
