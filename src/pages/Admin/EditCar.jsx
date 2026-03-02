@@ -131,7 +131,7 @@ export default function EditCar({ car, onClose }) {
           </div>
           <button
             onClick={onClose}
-            className="w-9 h-9 flex items-center justify-center rounded-lg bg-gray-100 hover:bg-red-50 hover:text-red-500 text-gray-500 transition-all border border-gray-200 hover:border-red-200"
+            className="w-9 h-9 flex items-center justify-center rounded-lg bg-gray-100 hover:bg-red-50 hover:text-red-500 text-gray-500 transition-all border border-gray-200 hover:border-red-200 cursor-pointer"
           >
             <FiX size={18} />
           </button>
@@ -407,7 +407,7 @@ export default function EditCar({ car, onClose }) {
             type="button"
             onClick={handleUpdateClick}
             disabled={loading || loadingImg}
-            className={`px-8 py-2.5 rounded-xl text-sm font-bold text-white transition-all flex items-center gap-2 shadow-md disabled:opacity-50 disabled:cursor-not-allowed ${
+            className={`px-8 py-2.5 rounded-xl text-sm font-bold text-white transition-all flex items-center gap-2 shadow-md disabled:opacity-50 cursor-pointer disabled:cursor-not-allowed ${
               updateSuccess
                 ? "bg-green-500 shadow-green-500/25"
                 : "bg-orange-500 hover:bg-orange-600 shadow-orange-500/25"

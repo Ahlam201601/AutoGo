@@ -15,7 +15,7 @@ import { addToWishlist, removeFromWishlist } from "../redux/Slices/wishlistSlice
 import EditCar from "../pages/Admin/EditCar";
 import { toast } from "react-hot-toast";
 
-export default function CarCard({ car, isAdmin, onDeleteClick }) {
+export default function CarCard({ car, isAdmin, onDeleteClick, isWishlist }) {
   const [editCar, setEditCar] = useState(false);
   const [currentCar, setCurrentCar] = useState(car);
   const dispatch = useDispatch();
@@ -77,21 +77,29 @@ export default function CarCard({ car, isAdmin, onDeleteClick }) {
             {car.category}
           </div>
 
-          {/* HEART WISHLIST BUTTON */}
-          <button
-            onClick={handleWishlistClick}
-            className={`absolute top-3 right-3 p-2 rounded-full shadow-md transition-colors cursor-pointer ${
-              isInWishlist
-                ? "bg-white text-red-500"
-                : "bg-white text-gray-600 hover:bg-red-500 hover:text-white"
-            }`}
-          >
-            <FiHeart
-              size={18}
-              className={isInWishlist ? "fill-red-500" : ""}
-              stroke="currentColor"
-            />
-          </button>
+          {/* ACTION BUTTON - HEART FOR USERS, TRASH FOR WISHLIGHT, HIDDEN FOR ADMINS */}
+          {!isAdmin && (
+            <button
+              onClick={handleWishlistClick}
+              className={`absolute top-3 right-3 p-2 rounded-full shadow-md transition-colors cursor-pointer ${
+                isWishlist
+                  ? "bg-white text-red-500 hover:bg-red-500 hover:text-white"
+                  : isInWishlist
+                  ? "bg-white text-red-500"
+                  : "bg-white text-gray-600 hover:bg-red-500 hover:text-white"
+              }`}
+            >
+              {isWishlist ? (
+                <FiTrash2 size={18} />
+              ) : (
+                <FiHeart
+                  size={18}
+                  className={isInWishlist ? "fill-red-500" : ""}
+                  stroke="currentColor"
+                />
+              )}
+            </button>
+          )}
         </div>
 
         {/* CONTENT */}

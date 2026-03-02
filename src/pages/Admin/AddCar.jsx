@@ -415,7 +415,7 @@ export default function AddCar() {
             type="button"
             onClick={handleAddClick}
             disabled={loading || loadingImg}
-            className={`px-8 py-2.5 rounded-xl text-sm font-bold text-white transition-all flex items-center gap-2 shadow-md disabled:opacity-50 disabled:cursor-not-allowed ${
+            className={`px-8 py-2.5 rounded-xl text-sm font-bold text-white transition-all flex items-center gap-2 shadow-md disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer ${
               addSuccess
                 ? "bg-green-500 shadow-green-500/25"
                 : "bg-orange-500 hover:bg-orange-600 shadow-orange-500/25"

@@ -4,92 +4,109 @@ import { useDispatch } from "react-redux";
 import { logout } from "../../redux/Slices/authSlice";
 import toast from "react-hot-toast";
 
-const AdminSidebar = ({ isOpen, onClose }) => {
+const AdminSidebar = ({ isOpen, closeSidebar }) => {
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const handleLogout = () => {
+  /* Logout */
+  const logoutHandler = () => {
     dispatch(logout());
     toast.success("Logout successful");
     navigate("/login");
   };
 
-  const linkClass = ({ isActive }) =>
-    `w-full text-left px-4 py-3 rounded-lg transition-colors flex items-center gap-3 cursor-pointer ${
-      isActive ? "bg-orange-500 text-white" : "text-gray-300 hover:bg-[#2a3442]"
-    }`;
-
   return (
     <>
-      {/* Backdrop for Mobile */}
+
+      {/* Overlay Mobile */}
       {isOpen && (
-        <div 
-          className="lg:hidden fixed inset-0 bg-black/50 z-[40] backdrop-blur-sm"
-          onClick={onClose}
+        <div
+          onClick={closeSidebar}
+          className="lg:hidden fixed inset-0 bg-black/50 z-40"
         />
       )}
 
-      {/* Sidebar Container */}
-      <div className={`w-64 bg-[#1a2332] text-white h-screen fixed left-0 top-0 flex flex-col z-50 transition-transform duration-300 lg:translate-x-0 ${
-        isOpen ? "translate-x-0" : "-translate-x-full"
-      }`}>
-        {/* Header (with close button for mobile) */}
-        <div className="p-6 border-b border-gray-700 flex justify-between items-center">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-orange-500 rounded-lg flex items-center justify-center">
-              <Car className="w-6 h-6" />
+      {/* Sidebar */}
+      <div className={`
+        fixed top-0 left-0 w-64 h-screen bg-[#1a2332] text-white z-50
+        transition-transform duration-300
+        ${isOpen ? "translate-x-0" : "-translate-x-full"}
+        lg:translate-x-0
+      `}>
+
+        {/* Header */}
+        <div className="flex justify-between p-6 border-b border-gray-700">
+
+          <div className="flex gap-3 items-center">
+            <div className="w-10 h-10 bg-orange-500 flex justify-center items-center rounded">
+              <Car size={22}/>
             </div>
+
             <h2 className="text-xl font-bold">AutoGo</h2>
           </div>
-          <button onClick={onClose} className="lg:hidden text-gray-400 hover:text-white">
-            <X size={24} />
+
+          <button onClick={closeSidebar} className="lg:hidden cursor-pointer">
+            <X size={22}/>
           </button>
+
         </div>
 
-        {/* Navigation */}
-        <nav className="flex-1 p-4 overflow-y-auto">
-          <ul className="space-y-2">
-            {/* Cars */}
-            <li>
-              <NavLink to="/admin" end className={linkClass} onClick={onClose}>
-                <div className="w-5 h-5 grid grid-cols-2 gap-0.5">
-                  <div className="w-2 h-2 bg-current rounded-sm"></div>
-                  <div className="w-2 h-2 bg-current rounded-sm"></div>
-                  <div className="w-2 h-2 bg-current rounded-sm"></div>
-                  <div className="w-2 h-2 bg-current rounded-sm"></div>
-                </div>
-                Cars
-              </NavLink>
-            </li>
+        {/* Menu */}
+        <div className="p-4 space-y-2">
 
-            {/* Add Car */}
-            <li>
-              <NavLink to="/admin/add" className={linkClass} onClick={onClose}>
-                <Plus className="w-5 h-5" />
-                Add Car
-              </NavLink>
-            </li>
+          <NavLink
+            to="/admin"
+            end
+            onClick={closeSidebar}
+            className={({isActive}) =>
+              `flex gap-3 p-3 rounded
+              ${isActive ? "bg-orange-500 text-white" : "text-gray-300 hover:bg-[#2a3442]"}`
+            }
+          >
+            <Car size={20}/>
+            Cars
+          </NavLink>
 
-            {/* Reservations */}
-            <li>
-              <NavLink to="/admin/reservation" className={linkClass} onClick={onClose}>
-                <Calendar className="w-5 h-5" />
-                Reservations
-              </NavLink>
-            </li>
-          </ul>
-        </nav>
+          <NavLink
+            to="/admin/add"
+            onClick={closeSidebar}
+            className={({isActive}) =>
+              `flex gap-3 p-3 rounded
+              ${isActive ? "bg-orange-500 text-white" : "text-gray-300 hover:bg-[#2a3442]"}`
+            }
+          >
+            <Plus size={20}/>
+            Add Car
+          </NavLink>
+
+          <NavLink
+            to="/admin/reservation"
+            onClick={closeSidebar}
+            className={({isActive}) =>
+              `flex gap-3 p-3 rounded
+              ${isActive ? "bg-orange-500 text-white" : "text-gray-300 hover:bg-[#2a3442]"}`
+            }
+          >
+            <Calendar size={20}/>
+            Reservations
+          </NavLink>
+
+        </div>
 
         {/* Logout */}
-        <div className="p-4 border-t border-gray-700">
-          <button 
-            onClick={handleLogout}
-            className="w-full text-left px-4 py-3 text-gray-300 hover:bg-[#2a3442] rounded-lg transition-colors flex items-center gap-3 cursor-pointer"
+        <div className="absolute bottom-0 w-full border-t border-gray-700 p-4">
+
+          <button
+            onClick={logoutHandler}
+            className="w-full flex gap-3 p-3 text-gray-300 hover:bg-[#2a3442] rounded cursor-pointer"
           >
-            <LogOut className="w-5 h-5" />
+            <LogOut size={20}/>
             Logout
           </button>
+
         </div>
+
       </div>
     </>
   );
