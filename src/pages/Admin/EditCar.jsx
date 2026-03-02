@@ -115,11 +115,11 @@ export default function EditCar({ car, onClose }) {
     }`;
 
   return (
-    <div className="fixed inset-0 bg-gray-900/60 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-      <div className="relative bg-white w-full max-w-6xl rounded-2xl shadow-2xl shadow-gray-900/25 border border-gray-100 max-h-[95vh] overflow-hidden flex flex-col">
+    <div className="fixed inset-0 bg-gray-900/60 backdrop-blur-sm flex items-center justify-center z-50 p-2 sm:p-4">
+      <div className="relative bg-white w-full max-w-6xl rounded-2xl shadow-2xl shadow-gray-900/25 border border-gray-100 max-h-[95vh] overflow-hidden flex flex-col mx-auto">
 
         {/* ── HEADER ── */}
-        <div className="flex items-center justify-between px-8 py-5 border-b border-gray-100 bg-white">
+        <div className="flex items-center justify-between px-4 sm:px-8 py-4 sm:py-5 border-b border-gray-100 bg-white">
           <div className="flex items-center gap-3">
             <div className="w-1 h-10 bg-orange-500 rounded-full" />
             <div>
@@ -138,14 +138,14 @@ export default function EditCar({ car, onClose }) {
         </div>
 
         {/* ── BODY ── */}
-        <div className="overflow-y-auto flex-1 px-8 py-6 bg-gray-50">
+        <div className="overflow-y-auto flex-1 px-4 sm:px-8 py-4 sm:py-6 bg-gray-50">
 
           {/* SECTION : Basic Information */}
           <div className="flex items-center gap-2 mb-3">
             <span className="w-5 h-0.5 bg-orange-500 rounded-full" />
             <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-orange-500">Basic Information</p>
           </div>
-          <div className="grid grid-cols-3 gap-4 mb-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
 
             {/* Brand */}
             <div>
@@ -192,7 +192,7 @@ export default function EditCar({ car, onClose }) {
             <span className="w-5 h-0.5 bg-orange-500 rounded-full" />
             <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-orange-500">Vehicle Details</p>
           </div>
-          <div className="grid grid-cols-3 gap-4 mb-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
 
             {/* Price */}
             <div>
@@ -239,7 +239,7 @@ export default function EditCar({ car, onClose }) {
             <span className="w-5 h-0.5 bg-orange-500 rounded-full" />
             <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-orange-500">Classification</p>
           </div>
-          <div className="grid grid-cols-3 gap-4 mb-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
 
             {/* Category */}
             <div>
@@ -302,7 +302,7 @@ export default function EditCar({ car, onClose }) {
           </div>
 
           {/* Row 1 : Consumption + Equipments + Description */}
-          <div className="grid grid-cols-3 gap-4 mb-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-4">
 
             {/* Consumption */}
             <div>
@@ -399,7 +399,7 @@ export default function EditCar({ car, onClose }) {
         </div>
 
         {/* ── FOOTER ── */}
-        <div className="px-8 py-4 border-t border-gray-100 bg-white flex items-center justify-between">
+        <div className="px-4 sm:px-8 py-4 border-t border-gray-100 bg-white flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-xs text-gray-400">
             <span className="text-orange-500 font-bold">*</span> Required fields
           </p>

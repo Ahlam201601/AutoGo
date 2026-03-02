@@ -1,7 +1,6 @@
 import { useSelector, useDispatch } from "react-redux";
 import { fetchReservations } from "../../redux/Slices/reservationSlice";
 import { FiClock, FiSearch, FiAlertCircle, FiX, FiCalendar, FiUser, FiPhone, FiMail, FiDollarSign } from "react-icons/fi";
-import toast from "react-hot-toast";
 import { useState, useEffect } from "react";
 
 export default function AdminReservations() {
@@ -14,12 +13,14 @@ export default function AdminReservations() {
     dispatch(fetchReservations());
   }, [dispatch]);
 
-  const filteredReservations = reservations.filter(
-    (reservation) =>
-      (reservation.customerName?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-       reservation.customerEmail?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-       reservation.carName?.toLowerCase().includes(searchTerm.toLowerCase()))
-  );
+  const sortedReservations = [...reservations]
+    .filter(
+      (reservation) =>
+        (reservation.customerName?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+         reservation.customerEmail?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+         reservation.carName?.toLowerCase().includes(searchTerm.toLowerCase()))
+    )
+    .reverse();
 
   // Error State
   if (error) {
@@ -104,7 +105,7 @@ export default function AdminReservations() {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-200">
-                  {filteredReservations.map((reservation) => (
+                  {sortedReservations.map((reservation) => (
                     <tr key={reservation.id} className="hover:bg-gray-50 transition-colors">
                       <td className="px-3 sm:px-4 md:px-6 py-2 sm:py-3 md:py-4">
                         <div className="flex items-center gap-2 sm:gap-3">
@@ -154,7 +155,7 @@ export default function AdminReservations() {
 
           {/* Mobile/Tablet Card View */}
           <div className="lg:hidden space-y-3 sm:space-y-4 mb-6 sm:mb-8">
-            {filteredReservations.map((reservation) => (
+            {sortedReservations.map((reservation) => (
               <div key={reservation.id} className="bg-white rounded-lg sm:rounded-xl shadow-sm sm:shadow-md border border-gray-100 overflow-hidden hover:shadow-lg transition-shadow">
                 <div className="p-3 sm:p-4 md:p-6">
                   {/* Header */}

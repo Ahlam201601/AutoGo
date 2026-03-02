@@ -123,7 +123,7 @@ export default function AddCar() {
 
   return (
     <div className="w-full max-w-full">
-      <div className="bg-white w-full p-6 md:p-8 lg:p-10 rounded-2xl shadow-xl border border-gray-100">
+      <div className="bg-white w-full p-4 sm:p-6 md:p-8 lg:p-10 rounded-2xl shadow-xl border border-gray-100">
         
         {/* ── HEADER ── */}
         <div className="flex items-center justify-between px-2 py-4 border-b border-gray-100 bg-white mb-6">
@@ -146,7 +146,7 @@ export default function AddCar() {
             <span className="w-5 h-0.5 bg-orange-500 rounded-full" />
             <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-orange-500">Basic Information</p>
           </div>
-          <div className="grid grid-cols-3 gap-4 mb-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
 
             {/* Brand */}
             <div>
@@ -196,7 +196,7 @@ export default function AddCar() {
             <span className="w-5 h-0.5 bg-orange-500 rounded-full" />
             <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-orange-500">Vehicle Details</p>
           </div>
-          <div className="grid grid-cols-3 gap-4 mb-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
 
             {/* Price */}
             <div>
@@ -246,7 +246,7 @@ export default function AddCar() {
             <span className="w-5 h-0.5 bg-orange-500 rounded-full" />
             <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-orange-500">Classification</p>
           </div>
-          <div className="grid grid-cols-3 gap-4 mb-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
 
             {/* Category */}
             <div>
@@ -309,7 +309,7 @@ export default function AddCar() {
           </div>
 
           {/* Row 1 : Consumption + Equipments + Description */}
-          <div className="grid grid-cols-3 gap-4 mb-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-4">
 
             {/* Consumption */}
             <div>
@@ -407,7 +407,7 @@ export default function AddCar() {
         </div>
 
         {/* ── FOOTER ── */}
-        <div className="px-2 py-4 border-t border-gray-100 bg-white flex items-center justify-between">
+        <div className="px-2 py-4 border-t border-gray-100 bg-white flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-xs text-gray-400">
             <span className="text-orange-500 font-bold">*</span> Required fields
           </p>
