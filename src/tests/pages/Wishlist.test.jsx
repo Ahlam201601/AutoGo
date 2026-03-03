@@ -4,7 +4,6 @@ import { render, screen } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
 import { MemoryRouter } from 'react-router-dom';
-import { describe, it, expect, vi } from 'vitest';
 import carsReducer from '../../redux/Slices/carsSlice';
 import wishlistReducer from '../../redux/Slices/wishlistSlice';
 import Wishlist from '../../pages/Wishlist';
@@ -38,11 +37,11 @@ function renderWithProviders(
 }
 
 // Mock components
-vi.mock('../../Components/Navbar', () => ({
+jest.mock('../../Components/Navbar', () => ({
   default: () => <div data-testid="navbar">Navbar</div>
 }));
 
-vi.mock('../../Components/Footer', () => ({
+jest.mock('../../Components/Footer', () => ({
   default: () => <div data-testid="footer">Footer</div>
 }));
 

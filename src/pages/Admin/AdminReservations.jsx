@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from "react-redux";
 import { fetchReservations } from "../../redux/Slices/reservationSlice";
-import { FiClock, FiSearch, FiAlertCircle, FiX, FiCalendar, FiUser, FiPhone, FiMail, FiDollarSign } from "react-icons/fi";
+import { FiClock, FiSearch, FiAlertCircle, FiX, FiCalendar, FiUser, FiPhone, FiMail } from "react-icons/fi";
 import { useState, useEffect } from "react";
 
 export default function AdminReservations() {
