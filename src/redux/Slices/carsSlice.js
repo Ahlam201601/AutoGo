@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import { getAIRecommendations as fetchAIFromGemini } from "../../api/route";
+// Removed fetchAIFromGemini import as it will be handled in the component
 
 const API_URL = import.meta.env.VITE_BASE_URL;
 const N8N_WEBHOOK_URL = import.meta.env.VITE_N8N_WEBHOOK_URL;
@@ -38,22 +38,7 @@ export const editCar = createAsyncThunk(
   }
 );
 
-/* ===================== GET AI RECOMMENDATIONS ===================== */
-export const getAIRecommendations = createAsyncThunk(
-  "cars/getAIRecommendations",
-  async (userPreferences, { getState, rejectWithValue }) => {
-    try {
-      const { cars } = getState().cars;
-      const recommendedIds = await fetchAIFromGemini(userPreferences, cars);
-
-      // Filter the original cars list by the IDs returned from AI
-      const recommendedCars = cars.filter(car => recommendedIds.includes(car.id));
-      return recommendedCars;
-    } catch (error) {
-      return rejectWithValue(error.message || "Failed to get AI recommendations");
-    }
-  }
-);
+// AI Recommendations AsyncThunk removed. Moving logic to Recommendations.jsx component.
 
 /* ===================== NOTIFY N8N ===================== */
 export const notifyN8n = createAsyncThunk(
@@ -81,7 +66,17 @@ const carsSlice = createSlice({
     recStatus: "idle",
     error: null,
   },
-  reducers: {},
+  reducers: {
+    setRecommendations: (state, action) => {
+      state.recommendations = action.payload;
+    },
+    setRecStatus: (state, action) => {
+      state.recStatus = action.payload;
+    },
+    setRecError: (state, action) => {
+      state.error = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder
       /* -------- GET -------- */
@@ -120,18 +115,6 @@ const carsSlice = createSlice({
         }
       })
 
-      /* -------- AI RECOMMENDATIONS -------- */
-      .addCase(getAIRecommendations.pending, (state) => {
-        state.recStatus = "loading";
-      })
-      .addCase(getAIRecommendations.fulfilled, (state, action) => {
-        state.recStatus = "succeeded";
-        state.recommendations = action.payload;
-      })
-      .addCase(getAIRecommendations.rejected, (state, action) => {
-        state.recStatus = "failed";
-        state.error = action.payload;
-      })
 
       /* -------- N8N NOTIFY -------- */
       .addCase(notifyN8n.rejected, (state, action) => {
@@ -140,4 +123,5 @@ const carsSlice = createSlice({
   },
 });
 
+export const { setRecommendations, setRecStatus, setRecError } = carsSlice.actions;
 export default carsSlice.reducer;

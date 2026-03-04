@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAIRecommendations, getCars } from "../redux/Slices/carsSlice";
+import { setRecommendations, setRecStatus, setRecError, getCars } from "../redux/Slices/carsSlice";
+import { getAIRecommendations as fetchAIRecommendations } from "../services/aiService";
 import CarCard from "../Components/CarCard";
 import Navbar from "../Components/Navbar";
 import Footer from "../Components/Footer";
@@ -24,9 +25,26 @@ export default function Recommendations() {
     fuel: "Petrol",
   });
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    dispatch(getAIRecommendations(preferences));
+    
+    dispatch(setRecStatus("loading"));
+    dispatch(setRecError(null));
+
+    try {
+      // Call the service directly
+      const recommendedIds = await fetchAIRecommendations(preferences, cars);
+      
+      // Filter the original cars list by the IDs returned from AI
+      const recommendedCars = cars.filter(car => recommendedIds.includes(car.id));
+      
+      dispatch(setRecommendations(recommendedCars));
+      dispatch(setRecStatus("succeeded"));
+    } catch (err) {
+      console.error("AI Assistant Error:", err);
+      dispatch(setRecError(err.message || "Failed to get AI recommendations"));
+      dispatch(setRecStatus("failed"));
+    }
   };
 
   const formOptions = {
